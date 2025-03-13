@@ -1,0 +1,11 @@
+.letrero{
+    color: blue;
+    font-size: 80px;
+    text-align: center;
+}
+
+.subletrero{
+    color: red;
+    font-size: 30px;
+    text-align: center;
+}
