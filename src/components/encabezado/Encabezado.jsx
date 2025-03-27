@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Container, Nav, Navbar, Offcanvas } from "react-bootstrap";
-import logo from "/vite.svg"; // Importación del logo de la ferretería
 import logocompuser from "/Logo_Compuser.png";
 import "bootstrap-icons/font/bootstrap-icons.css"; // Importación de íconos de Bootstrap
 import "../../App.css"; // Estilos personalizados de la aplicación
@@ -96,6 +95,14 @@ const Encabezado = () => {
               </Nav.Link>
 
               <Nav.Link
+                onClick={() => navegarA("/equipos")}
+                className={estaColapsado ? "text-black" : "text-white"}
+              >
+                {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
+                <strong>Equipos Computarizados</strong>
+              </Nav.Link>
+
+              <Nav.Link
                 onClick={() => navegarA("/empleados")}
                 className={estaColapsado ? "text-black" : "text-white"}
               >
@@ -111,6 +118,29 @@ const Encabezado = () => {
                 <strong>Servicios</strong>
               </Nav.Link>
 
+              <Nav.Link
+                onClick={() => navegarA("/diagnosticos")}
+                className={estaColapsado ? "text-black" : "text-white"}
+              >
+                {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
+                <strong>Diagnosticos</strong>
+              </Nav.Link>
+
+              <Nav.Link
+                onClick={() => navegarA("/entregas")}
+                className={estaColapsado ? "text-black" : "text-white"}
+              >
+                {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
+                <strong>Entregas</strong>
+              </Nav.Link>
+
+              <Nav.Link
+                onClick={() => navegarA("/recepciones")}
+                className={estaColapsado ? "text-black" : "text-white"}
+              >
+                {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
+                <strong>Recepciones</strong>
+              </Nav.Link>
 
               {/* Lógica condicional para mostrar Cerrar Sesión o Iniciar Sesión */}
               {estaLogueado ? (

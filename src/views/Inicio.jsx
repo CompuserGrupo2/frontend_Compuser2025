@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
+import logocompuser from "/Logo_Compuser.png";
 
 const Inicio = () => {
   const [nombreUsuario, setNombreUsuario] = useState("");
@@ -23,10 +24,10 @@ const Inicio = () => {
 
 
   return (
-    <Container>
+    <Container className="center-text">
       <h1>¡Bienvenido, {nombreUsuario}!</h1>
-      <p>Estás en la página de inicio.</p>
-      <button onClick={cerrarSesion}>Cerrar Sesión</button>
+
+      <img alt="" src={logocompuser} width="700" height="200" className="center"/>{" "}
     </Container>
   );
 };

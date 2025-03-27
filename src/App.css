@@ -11,4 +11,17 @@
     margin-top: 60px;
   }
 
+  .center {
+    display: block;        /* Asegura que la imagen no tenga elementos alineados al lado */
+    margin: 0 auto;        /* Centra horizontalmente */
+    max-width: 100%;       /* Evita que la imagen se desborde */
+    height: auto;          /* Mantiene la proporción original */
+    text-align: center;    /* Asegura alineación si está dentro de un contenedor */
+    margin-top: -30px;
+  }
   
+  .center-text{
+    text-align: center;
+    margin-top: 100px;
+
+  }
