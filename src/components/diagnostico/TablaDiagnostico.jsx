@@ -14,7 +14,7 @@ const TablaDiagnostico = ({ diagnosticos, cargando, error }) => {
   // Renderizado de la tabla con los datos recibidos
   return (
     <Table striped bordered hover responsive>
-      <thead>
+      <thead className='table-dark'>
         <tr>
           <th>ID Diagnóstico</th>
           <th>ID Detalle</th>

@@ -13,7 +13,7 @@ const Entregas = () => {
   useEffect(() => {
     const obtenerEntregas = async () => { // Método renombrado a español
       try {
-        const respuesta = await fetch('http://127.0.0.1:3000/api/entregas'); //Mi host no es localhost si no 127.0.0.1
+        const respuesta = await fetch('http://127.0.0.1:3000/api/obtenerentregas'); //Mi host no es localhost si no 127.0.0.1
         if (!respuesta.ok) {
           throw new Error('Error al cargar las entregas');
         }
