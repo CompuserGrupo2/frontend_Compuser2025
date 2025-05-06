@@ -1,9 +1,20 @@
 // Importaciones necesarias para el componente visual
 import React from 'react';
-import { Table } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
+import Paginacion from '../ordenamiento/Paginacion';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const TablaEntregas = ({ entregas, cargando, error }) => {
+const TablaEntregas = ({
+  entregas,
+  cargando,
+  error,
+  totalElementos,
+  elementosPorPagina,
+  paginaActual,
+  establecerPaginaActual,
+  abrirModalEliminacion,
+  abrirModalEdicion
+}) => {
   if (cargando) {
     return <div>Cargando entregas...</div>; // Muestra mensaje mientras carga
   }
@@ -13,6 +24,10 @@ const TablaEntregas = ({ entregas, cargando, error }) => {
 
   // Renderizado de la tabla con los datos recibidos
   return (
+    <div
+    className="d-flex flex-column justify-content-between"
+    style={{ minHeight: "60vh" }} // ajusta el valor si querés más o menos altura mínima
+    >
     <Table striped bordered hover responsive>
       <thead className='table-dark'>
         <tr>
@@ -22,6 +37,7 @@ const TablaEntregas = ({ entregas, cargando, error }) => {
           <th>Cliente</th>
           <th>Equipo</th>
           <th>Empleado</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -33,10 +49,38 @@ const TablaEntregas = ({ entregas, cargando, error }) => {
             <td>{entrega.cliente}</td>
             <td>{entrega.equipo}</td>
             <td>{entrega.empleado}</td>
+            <td>
+              <Button
+                variant="outline-primary"
+                size="sm"
+                className="me-2"
+                onClick={() => abrirModalEdicion(entrega)}
+              >
+                <i className="bi bi-pencil"></i>
+              </Button>
+              <Button
+                variant="outline-danger"
+                size="sm"
+                className="me-2"
+                onClick={() => abrirModalEliminacion(entrega)}
+              >
+                <i className="bi bi-trash"></i>
+              </Button>
+            </td>
           </tr>
         ))}
       </tbody>
     </Table>
+    {/* Paginación fijada abajo del contenedor de la tabla */}
+    <div className="mt-auto">
+      <Paginacion
+        elementosPorPagina={elementosPorPagina}
+        totalElementos={totalElementos}
+        paginaActual={paginaActual}
+        establecerPaginaActual={establecerPaginaActual}
+      />
+    </div>
+  </div>
   );
 };
 
