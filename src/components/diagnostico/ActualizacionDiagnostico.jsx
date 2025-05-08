@@ -157,7 +157,7 @@ const ActualizacionDiagnostico = ({
 
     setDetallesDiagnostico(prev => [...prev, {
       id_ser: nuevoDetalle.id_ser,
-      descripcion: servicioSeleccionado.label,
+      servicio: servicioSeleccionado.label,
       costo: parseFloat(nuevoDetalle.costo)
     }]);
     setNuevoDetalle({ id_ser: '', costo: '' });
