@@ -4,7 +4,7 @@ import ModalDetallesDiagnostico from '../components/detalles_diagnosticos/ModalD
 import EliminacionDiagnostico from '../components/diagnostico/EliminacionDiagnostico';
 import RegistroDiagnostico from '../components/diagnostico/RegistroDiagnostico';
 import ActualizacionDiagnostico from '../components/diagnostico/ActualizacionDiagnostico';
-import { Container,  Button, Row, Col } from "react-bootstrap";
+import { Container,  Button, Row, Col, Alert } from "react-bootstrap";
 import CuadroBusquedas from '../components/busquedas/CuadroBusquedas';
 
 
@@ -30,6 +30,9 @@ const Diagnosticos = () => {
   //Eliminación
   const [mostrarModalEliminacion, setMostrarModalEliminacion] = useState(false);
   const [diagnosticoAEliminar, setDiagnosticoAEliminar] = useState(null);
+
+  // Estado para mostrar mensaje de confirmación
+  const [mensajeExito, setMensajeExito] = useState(null); 
 
   //Registro
   const [mostrarModalRegistro, setMostrarModalRegistro] = useState(false);
@@ -157,6 +160,8 @@ const Diagnosticos = () => {
       await obtenerDiagnosticos();
       setDiagnosticoAEliminar(null);
       setErrorCarga(null);
+      setMensajeExito('Diagnostico eliminado correctamente😉'); // Mensaje de confirmación al eliminar exitosamente
+      setTimeout(() => setMensajeExito(null), 3000); // Oculta el mensaje automáticamente luego de 3 segundos
     } catch (error) {
       setErrorCarga(error.message);
     }
@@ -200,6 +205,8 @@ const Diagnosticos = () => {
       setDetallesNuevos([]);
       setMostrarModalRegistro(false);
       setErrorCarga(null);
+      setMensajeExito('Diagnostico registrado correctamente😉'); //Mensaje de confirmación
+      setTimeout(() => setMensajeExito(null), 3000);
     } catch (error) {
       setErrorCarga(error.message);
     }
@@ -276,6 +283,8 @@ const Diagnosticos = () => {
       setMostrarModalActualizacion(false);
       setDiagnosticoAEditar(null);
       setDetallesEditados([]);
+      setMensajeExito('Diagnostico actualizado correctamente😉'); // Mensaje de confirmación al eliminar exitosamente
+      setTimeout(() => setMensajeExito(null), 3000); // Oculta el mensaje automáticamente luego de 3 segundos
       setErrorCarga(null);
     } catch (error) {
       setErrorCarga(error.message);
@@ -308,7 +317,11 @@ const Diagnosticos = () => {
       <Container className="mt-5">
         <br />
         <h4>Diagnósticos</h4>
-
+        {mensajeExito && ( //para que este visible en pantalla la confirmación
+          <Alert variant="success" onClose={() => setMensajeExito(null)} dismissible>
+            {mensajeExito}
+          </Alert>
+        )}
         <Row>
           <Col lg={2} md={4} sm={4} xs={5}>
           <Button variant="primary" onClick={() => setMostrarModalRegistro(true)} style={{ width: "100%" }}>
