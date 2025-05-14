@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container,  Button, Row, Col } from "react-bootstrap";
+import { Container,  Button, Row, Col, Alert } from "react-bootstrap";
 import TablaRecepciones from '../components/recepciones/TablaRecepciones';
 import RegistroRecepcion from '../components/recepciones/RegistroRecepcion';
 import CuadroBusquedas from '../components/busquedas/CuadroBusquedas';
@@ -39,6 +39,9 @@ const Recepciones = () => {
   //Edición
   const [recepcionEditada, setRecepcionEditada] = useState(null);
   const [mostrarModalEdicion, setMostrarModalEdicion] = useState(false);
+
+  // Estado para mostrar mensaje de confirmación
+  const [mensajeExito, setMensajeExito] = useState(null); 
 
   //UseEffect
   useEffect(() => {
@@ -146,6 +149,8 @@ const Recepciones = () => {
       });
       setMostrarModal(false);
       setErrorCarga(null);
+      setMensajeExito('Recepción registrada correctamente😉'); //Mensaje de confirmación
+      setTimeout(() => setMensajeExito(null), 3000);
     } catch (error) {
       setErrorCarga(error.message);
     }
@@ -190,6 +195,8 @@ const Recepciones = () => {
       establecerPaginaActual(1); // Regresa a la primera página
       setRecepcionAEliminar(null);
       setErrorCarga(null);
+      setMensajeExito('Recepción eliminada correctamente😉'); // Mensaje de confirmación al eliminar exitosamente
+      setTimeout(() => setMensajeExito(null), 3000); // Oculta el mensaje automáticamente luego de 3 segundos
     } catch (error) {
       setErrorCarga(error.message);
     }
@@ -241,6 +248,8 @@ const Recepciones = () => {
       setMostrarModalEdicion(false);
       setRecepcionEditada(null);
       setErrorCarga(null);
+      setMensajeExito('Recepción actualizada correctamente😉'); // Mensaje de confirmación al eliminar exitosamente
+      setTimeout(() => setMensajeExito(null), 3000); // Oculta el mensaje automáticamente luego de 3 segundos
     } catch (error) {
       setErrorCarga(error.message);
     }
@@ -257,6 +266,11 @@ const Recepciones = () => {
       <Container className="mt-5">
         <br />
         <h4>Recepciones</h4>
+        {mensajeExito && ( //para que este visible en pantalla la confirmación
+          <Alert variant="success" onClose={() => setMensajeExito(null)} dismissible>
+            {mensajeExito}
+          </Alert>
+        )}
         <Row>
           <Col lg={2} md={4} sm={4} xs={5}>
             <Button variant="primary" onClick={() => setMostrarModal(true)} style={{ width: "100%" }}>

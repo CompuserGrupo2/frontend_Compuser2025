@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container,  Button, Row, Col  } from "react-bootstrap";
+import { Container,  Button, Row, Col, Alert  } from "react-bootstrap";
 import TablaEntregas from '../components/entregas/TablaEntregas';
 import RegistroEntrega from '../components/entregas/RegistroEntrega';
 import EdicionEntrega from '../components/entregas/EdicionEntrega';
@@ -40,6 +40,9 @@ const Entregas = () => {
     //Edición
     const [entregaEditada, setEntregaEditada] = useState(null);
     const [mostrarModalEdicion, setMostrarModalEdicion] = useState(false);
+
+    // Estado para mostrar mensaje de confirmación
+    const [mensajeExito, setMensajeExito] = useState(null);
 
 
   useEffect(() => {
@@ -145,6 +148,8 @@ const Entregas = () => {
       });
       setMostrarModal(false);
       setErrorCarga(null);
+      setMensajeExito('Entrega registrada correctamente😉'); //Mensaje de confirmación
+      setTimeout(() => setMensajeExito(null), 3000);
     } catch (error) {
       setErrorCarga(error.message);
     }
@@ -189,6 +194,8 @@ const Entregas = () => {
       establecerPaginaActual(1); // Regresa a la primera página
       setEntregaAEliminar(null);
       setErrorCarga(null);
+      setMensajeExito('Entrega eliminada correctamente😉'); // Mensaje de confirmación al eliminar exitosamente
+      setTimeout(() => setMensajeExito(null), 3000); // Oculta el mensaje automáticamente luego de 3 segundos
     } catch (error) {
       setErrorCarga(error.message);
     }
@@ -240,6 +247,8 @@ const Entregas = () => {
       setMostrarModalEdicion(false);
       setEntregaEditada(null);
       setErrorCarga(null);
+      setMensajeExito('Entrega actualizada correctamente😉'); // Mensaje de confirmación al eliminar exitosamente
+      setTimeout(() => setMensajeExito(null), 3000); // Oculta el mensaje automáticamente luego de 3 segundos
     } catch (error) {
       setErrorCarga(error.message);
     }
@@ -250,14 +259,16 @@ const Entregas = () => {
     setMostrarModalEdicion(true);
   };
 
-
-
   return (
     <>
       <Container className="mt-5">
         <br />
         <h4>Entregas</h4>
-
+        {mensajeExito && ( //para que este visible en pantalla la confirmación
+          <Alert variant="success" onClose={() => setMensajeExito(null)} dismissible>
+            {mensajeExito}
+          </Alert>
+        )}
         <Row>
           <Col lg={2} md={4} sm={4} xs={5}>
             <Button variant="primary" onClick={() => setMostrarModal(true)} style={{ width: "100%" }}>

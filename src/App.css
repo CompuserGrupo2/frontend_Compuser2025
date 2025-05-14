@@ -25,3 +25,23 @@
     margin-top: 100px;
 
   }
+
+/* Línea superior animada - Profesional y más gruesa */
+.color-navbar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 6px; 
+  background: linear-gradient(90deg, #8fbdff, #aac5e0, #3371c9); 
+  animation: slide 5s linear infinite;
+  opacity: 0.9;
+  z-index: 10;
+  border-radius: 3px;
+}
+
+@keyframes slide {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}

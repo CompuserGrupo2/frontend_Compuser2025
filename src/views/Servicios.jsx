@@ -4,7 +4,7 @@ import RegistroServicio from '../components/servicios/RegistroServicio';
 import EliminacionServicio from '../components/servicios/EliminacionServicio';
 import EdicionServicio from '../components/servicios/EdicionServicio';
 import CuadroBusquedas from '../components/busquedas/CuadroBusquedas';
-import { Container, Button, Row, Col } from "react-bootstrap";
+import { Container, Button, Row, Col, Alert } from "react-bootstrap";
 
 
 const Servicios = () => {
@@ -33,6 +33,9 @@ const Servicios = () => {
   //Edición
   const [servicioEditado, setServicioEditado] = useState(null);
   const [mostrarModalEdicion, setMostrarModalEdicion] = useState(false);
+
+  // Estado para mostrar mensaje de confirmación
+  const [mensajeExito, setMensajeExito] = useState(null);
   
   const obtenerServicios = async () => { // Método renombrado a español
     try {
@@ -87,6 +90,8 @@ const Servicios = () => {
       setNuevoServicio({ descripcion: '', costo: ''});
       setMostrarModal(false);
       setErrorCarga(null);
+      setMensajeExito('Servicio registrado correctamente😉'); //Mensaje de confirmación
+      setTimeout(() => setMensajeExito(null), 3000);
     } catch (error) {
       setErrorCarga(error.message);
     }
@@ -128,6 +133,8 @@ const Servicios = () => {
       establecerPaginaActual(1); // Regresa a la primera página
       setServicioAEliminar(null);
       setErrorCarga(null);
+      setMensajeExito('Servicio eliminado correctamente😉'); // Mensaje de confirmación al eliminar exitosamente
+      setTimeout(() => setMensajeExito(null), 3000); // Oculta el mensaje automáticamente luego de 3 segundos
     } catch (error) {
       setErrorCarga(error.message);
     }
@@ -173,6 +180,8 @@ const Servicios = () => {
       setMostrarModalEdicion(false);
       setServicioEditado(null);
       setErrorCarga(null);
+      setMensajeExito('Servicio actualizado correctamente😉'); // Mensaje de confirmación al eliminar exitosamente
+      setTimeout(() => setMensajeExito(null), 3000); // Oculta el mensaje automáticamente luego de 3 segundos
     } catch (error) {
       setErrorCarga(error.message);
     }
@@ -188,7 +197,11 @@ const Servicios = () => {
       <Container className="mt-5">
         <br />
         <h4>Servicios Disponibles</h4>
-
+        {mensajeExito && ( //para que este visible en pantalla la confirmación
+          <Alert variant="success" onClose={() => setMensajeExito(null)} dismissible>
+            {mensajeExito}
+          </Alert>
+        )}
         <Row>
           <Col lg={2} md={4} sm={4} xs={5}>
             <Button variant="primary" onClick={() => setMostrarModal(true)} style={{ width: "100%" }}>
