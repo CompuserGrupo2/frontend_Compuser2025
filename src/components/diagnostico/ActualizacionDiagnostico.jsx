@@ -157,7 +157,7 @@ const ActualizacionDiagnostico = ({
 
     setDetallesDiagnostico(prev => [...prev, {
       id_ser: nuevoDetalle.id_ser,
-      servicio: servicioSeleccionado.label,
+      descripcion: servicioSeleccionado.label,
       costo: parseFloat(nuevoDetalle.costo)
     }]);
     setNuevoDetalle({ id_ser: '', costo: '' });
@@ -178,7 +178,7 @@ const ActualizacionDiagnostico = ({
     });
     setServicioSeleccionado({
       value: detalle.id_ser,
-      label: detalle.servicio,
+      label: detalle.descripcion,
       costo: detalle.costo
     });
   };
@@ -200,7 +200,7 @@ const ActualizacionDiagnostico = ({
     const nuevosDetalles = [...detallesDiagnostico];
     nuevosDetalles[editandoDetalle.index] = {
       id_ser: nuevoDetalle.id_ser,
-      servicio: servicioSeleccionado.label,
+      descripcion: servicioSeleccionado.label,
       costo: parseFloat(nuevoDetalle.costo)
     };
     setDetallesDiagnostico(nuevosDetalles);
@@ -341,7 +341,7 @@ const ActualizacionDiagnostico = ({
                 <tbody>
                   {detallesDiagnostico.map((detalle, index) => (
                     <tr key={index}>
-                      <td>{detalle.servicio}</td>
+                      <td>{detalle.descripcion}</td>
                       <td>{detalle.costo.toFixed(2)}</td>
                       <td>
                         <Button variant="warning" size="sm" onClick={() => iniciarEdicionDetalle(index, detalle)} className="me-2">

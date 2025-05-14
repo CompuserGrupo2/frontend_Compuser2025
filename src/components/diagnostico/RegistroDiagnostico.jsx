@@ -191,8 +191,22 @@ const RegistroDiagnostico = ({
                   name="descripcion"
                   value={nuevoDiagnostico.descripcion}
                   onChange={manejarCambioDiagnostico}
-                  placeholder="Ingresa la descripción (máx. 30 caracteres)"
-                  maxLength={30}
+                  placeholder="Ingresa la descripción (máx. 100 caracteres)"
+                  maxLength={100}
+                  required
+                />
+              </Form.Group>
+            </Col>
+            <Col xs={12} sm={12} md={3} lg={3}>
+              <Form.Group className="mb-3" controlId="formFecha">
+                <Form.Label>Fecha de Diagnóstico</Form.Label>
+                <br />
+                <Form.Control
+                  type="date"
+                  name="fecha"
+                  value={nuevoDiagnostico.fecha}
+                  onChange={manejarCambioDiagnostico}
+                  className="form-control"
                   required
                 />
               </Form.Group>

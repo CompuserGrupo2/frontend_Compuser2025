@@ -41,7 +41,9 @@ const Diagnosticos = () => {
     id_cliente: '',
     id_empleado: '',
     id_equipocomp: '',
-    descripcion: ''
+    descripcion: '',
+    fecha: new Date(),
+    total: 0
   });
   const [detallesNuevos, setDetallesNuevos] = useState([]);
 
@@ -169,11 +171,16 @@ const Diagnosticos = () => {
 
   const agregarDetalle = (detalle) => {
     setDetallesNuevos(prev => [...prev, detalle]);
+    setNuevoDiagnostico(prev => ({
+      ...prev,
+      total: prev.total + (detalle.precio)
+    }))
   };
   
   const agregarDiagnostico = async () => {
     if (!nuevoDiagnostico.id_cliente || !nuevoDiagnostico.id_equipocomp ||
-       !nuevoDiagnostico.id_empleado || !nuevoDiagnostico.descripcion || detallesNuevos.length === 0) {
+       !nuevoDiagnostico.id_empleado || !nuevoDiagnostico.descripcion || 
+       !nuevoDiagnostico.fecha ||detallesNuevos.length === 0) {
       alert("Por favor, completa todos los campos y agrega al menos un detalle.")
       return;
     }
@@ -184,6 +191,8 @@ const Diagnosticos = () => {
         id_equipocomp: nuevoDiagnostico.id_equipocomp,
         id_cliente: nuevoDiagnostico.id_cliente,
         id_empleado: nuevoDiagnostico.id_empleado,
+        fecha: nuevoDiagnostico.fecha,
+        total: detallesNuevos.reduce((sum, d) => sum + (d.precio), 0),
         detalles: detallesNuevos
       };
   
@@ -193,10 +202,13 @@ const Diagnosticos = () => {
         body: JSON.stringify(DiagnosticoData)
       });
   
-      if (!respuesta.ok) throw new Error('Error al registrar el diagnóstico');
+      if (!respuesta.ok) {
+        const errorData = await respuesta.json();
+        throw new Error(errorData.message || 'Error al registrar el diagnóstico');
+}
   
       await obtenerDiagnosticos();
-      setNuevoDiagnostico({descripcion: '', id_equipocomp:'', id_cliente: '', id_empleado: ''});
+      setNuevoDiagnostico({descripcion: '', id_equipocomp:'', id_cliente: '', id_empleado: '', fecha: new Date(), total: 0});
       setDetallesNuevos([]);
       setMostrarModalRegistro(false);
       setErrorCarga(null);

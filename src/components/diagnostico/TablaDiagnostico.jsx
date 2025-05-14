@@ -22,10 +22,6 @@ const TablaDiagnostico = ({ diagnosticos,
     return <div>Error: {error}</div>;     // Muestra error si ocurre
   }
 
-  // Función para formatear el total con el signo C$
-  const formatearTotal = (total) => {
-    return `C$ ${total.toLocaleString('es-NI', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-  };
 
   const diagnosticosOrdenados = [...diagnosticos].sort((a, b) => a.id_diag - b.id_diag);
 
@@ -43,6 +39,7 @@ const TablaDiagnostico = ({ diagnosticos,
           <th>Equipo</th>
           <th>Descripción</th>
           <th>Empleado</th>
+          <th>Fecha</th>
           <th>Total</th>
           <th>Acciones</th>
         </tr>
@@ -55,7 +52,8 @@ const TablaDiagnostico = ({ diagnosticos,
             <td>{diagnostico.equipo}</td>
             <td>{diagnostico.descripcion}</td>
             <td>{diagnostico.empleado}</td>
-            <td>{formatearTotal(diagnostico.total)}</td>
+            <td>{diagnostico.fecha}</td>
+            <td>C$ {diagnostico.total != null ? diagnostico.total.toFixed(2) : '0.00'}</td>
             <td>
               <Button
                 variant="outline-success"

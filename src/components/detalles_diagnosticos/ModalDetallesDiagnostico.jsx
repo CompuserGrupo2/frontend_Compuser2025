@@ -35,7 +35,7 @@ const ModalDetallesDiagnostico = ({
                 {detalles.map((detalle) => (
                   <tr key={detalle.id_detallediag}>
                     <td>{detalle.id_detallediag}</td>
-                    <td>{detalle.servicio}</td>
+                    <td>{detalle.descripcion}</td>
                     <td>C$ {typeof detalle.costo === 'number' ? detalle.costo.toFixed(2) : '0.00'}</td>
                   </tr>
                 ))}
