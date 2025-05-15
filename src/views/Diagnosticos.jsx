@@ -25,7 +25,7 @@ const Diagnosticos = () => {
     
   //Paginación
   const [paginaActual, establecerPaginaActual] = useState(1);
-  const elementosPorPagina = 5; // Número de elementos por página
+  const elementosPorPagina = 4; // Número de elementos por página
 
   //Eliminación
   const [mostrarModalEliminacion, setMostrarModalEliminacion] = useState(false);
@@ -197,7 +197,7 @@ const Diagnosticos = () => {
         id_cliente: nuevoDiagnostico.id_cliente,
         id_empleado: nuevoDiagnostico.id_empleado,
         fecha: nuevoDiagnostico.fecha,
-        total: detallesNuevos.reduce((sum, d) => sum + (d.precio), 0),
+        total: detallesNuevos.reduce((sum, d) => sum + (d.costo), 0),
         detalles: detallesNuevos
       };
   
@@ -238,6 +238,8 @@ const Diagnosticos = () => {
         id_equipocomp: datosdiagnostico.id_equipocomp,
         id_cliente: datosdiagnostico.id_cliente,
         id_empleado: datosdiagnostico.id_empleado,
+        fecha: datosdiagnostico.fecha,
+        total: datosdiagnostico.total,
         cliente: {
           nombre: diagnostico.nombre,
           apellido: diagnostico.apellido
@@ -271,7 +273,9 @@ const Diagnosticos = () => {
 
   const actualizarDiagnostico = async (diagnosticoActualizado, detalles) => {
 
-    if (!diagnosticoActualizado.descripcion || !diagnosticoActualizado.id_equipocomp || !diagnosticoActualizado.id_cliente || !diagnosticoActualizado.id_empleado || detalles.length === 0) {
+    if (!diagnosticoActualizado.descripcion || !diagnosticoActualizado.id_equipocomp || 
+      !diagnosticoActualizado.id_cliente || !diagnosticoActualizado.id_empleado || 
+      !diagnosticoActualizado.fecha || detalles.length === 0) {
       setErrorCarga("Por favor, completa todos los campos y agrega al menos un detalle.");
       return;
     }
@@ -282,6 +286,8 @@ const Diagnosticos = () => {
         id_equipocomp: diagnosticoActualizado.id_equipocomp,
         id_cliente: diagnosticoActualizado.id_cliente,
         id_empleado: diagnosticoActualizado.id_empleado,
+        fecha: diagnosticoActualizado.fecha,
+        total: detalles.reduce((sum, d) => sum + (d.costo), 0),
         detalles
       };
       console.log(`Enviando ID diagnóstico: ${diagnosticoActualizado.id_diag}`, JSON.stringify(diagnosticoData));

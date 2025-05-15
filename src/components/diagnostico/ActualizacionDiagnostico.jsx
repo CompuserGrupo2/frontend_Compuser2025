@@ -23,6 +23,8 @@ const ActualizacionDiagnostico = ({
     id_equipocomp: diagnostico?.id_equipocomp || '',
     id_cliente: diagnostico?.id_cliente || '',
     id_empleado: diagnostico?.id_empleado || '',
+    fecha: diagnostico?.fecha ? new Date(diagnostico.fecha) : new Date(),
+    total: diagnostico?.total || 0
   });
   const [clienteSeleccionado, setClienteSeleccionado] = useState(null);
   const [empleadoSeleccionado, setEmpleadoSeleccionado] = useState(null);
@@ -33,8 +35,6 @@ const ActualizacionDiagnostico = ({
 
   // Calcular total
   const totalDiagnostico = detallesDiagnostico.reduce((sum, detalle) => sum + (detalle.costo), 0);
-
-
 
   useEffect(() => {
     if (diagnostico && clientes.length > 0 && empleados.length > 0 && equipos.length > 0) {
@@ -56,7 +56,9 @@ const ActualizacionDiagnostico = ({
       setDiagnosticoActualizado(prev => ({
         ...prev,
         id_diag: diagnostico.id_diag || '',
-        descripcion: diagnostico.descripcion || ''
+        descripcion: diagnostico.descripcion || '',
+        fecha: diagnostico?.fecha ? new Date(diagnostico.fecha) : new Date(),
+        total: parseFloat(diagnostico.total) || 0
       }));
     }
   }, [diagnostico, clientes, empleados, equipos, servicios]);
@@ -277,8 +279,22 @@ const ActualizacionDiagnostico = ({
                   name="descripcion"
                   value={diagnosticoActualizado.descripcion}
                   onChange={manejarCambioDiagnostico}
-                  placeholder="Ingresa la descripción (máx. 30 caracteres)"
-                  maxLength={30}
+                  placeholder="Ingresa la descripción (máx. 100 caracteres)"
+                  maxLength={100}
+                  required
+                />
+              </Form.Group>
+            </Col>
+            <Col xs={12} sm={12} md={3} lg={3}>
+              <Form.Group className="mb-3" controlId="formFecha">
+                <Form.Label>Fecha de Diagnóstico</Form.Label>
+                <br />
+                <Form.Control
+                  type="date"
+                  name="fecha"
+                  value={diagnosticoActualizado.fecha}
+                  onChange={manejarCambioDiagnostico}
+                  className="form-control"
                   required
                 />
               </Form.Group>

@@ -44,7 +44,11 @@ const TablaRecepciones = ({
         {recepciones.map((recepcion) => (
           <tr key={recepcion.id_recepcion}>
             <td>{recepcion.id_recepcion}</td>
-            <td>{recepcion.fecha}</td>
+            <td>
+              {recepcion.fecha
+                ? new Date(recepcion.fecha).toLocaleDateString()
+                : 'Sin fecha'}
+            </td>
             <td>{recepcion.estado_recepcion}</td>
             <td>{recepcion.cliente}</td>
             <td>{recepcion.equipo}</td>

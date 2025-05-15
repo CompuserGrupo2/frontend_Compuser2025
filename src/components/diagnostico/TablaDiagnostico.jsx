@@ -34,7 +34,7 @@ const TablaDiagnostico = ({ diagnosticos,
     <Table striped bordered hover responsive>
       <thead className='table-dark'>
         <tr>
-          <th>ID Diagnóstico</th>
+          <th>ID</th>
           <th>Cliente</th>
           <th>Equipo</th>
           <th>Descripción</th>
@@ -52,7 +52,11 @@ const TablaDiagnostico = ({ diagnosticos,
             <td>{diagnostico.equipo}</td>
             <td>{diagnostico.descripcion}</td>
             <td>{diagnostico.empleado}</td>
-            <td>{diagnostico.fecha}</td>
+            <td>
+              {diagnostico.fecha
+                ? new Date(diagnostico.fecha).toLocaleDateString()
+                : 'Sin fecha'}
+            </td>
             <td>C$ {diagnostico.total != null ? diagnostico.total.toFixed(2) : '0.00'}</td>
             <td>
               <Button

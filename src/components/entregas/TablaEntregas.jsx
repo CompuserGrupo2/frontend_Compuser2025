@@ -44,7 +44,11 @@ const TablaEntregas = ({
         {entregas.map((entrega) => (
           <tr key={entrega.id_entregaequipo}>
             <td>{entrega.id_entregaequipo}</td>
-            <td>{entrega.fecha}</td>
+            <td>
+              {entrega.fecha
+                ? new Date(entrega.fecha).toLocaleDateString()
+                : 'Sin fecha'}
+            </td>
             <td>{entrega.estado_entrega}</td>
             <td>{entrega.cliente}</td>
             <td>{entrega.equipo}</td>
