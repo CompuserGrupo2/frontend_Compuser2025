@@ -24,8 +24,8 @@ const RegistroServicio = ({
               name="descripcion"
               value={nuevoServicio.descripcion}
               onChange={manejarCambioInput}
-              placeholder="Ingresa la descripción del servicio (máx. 40 caracteres)"
-              maxLength={40}
+              placeholder="Ingresa la descripción del servicio (máx. 80 caracteres)"
+              maxLength={80}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formCostoServicio">
@@ -39,6 +39,27 @@ const RegistroServicio = ({
               min={0}
               step={0.01}
               required
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formImagenServicio">
+            <Form.Label>Imagen</Form.Label>
+            <Form.Control
+              type="file"
+              name="imagen"
+              accept="image/*"
+              onChange={(e) => {
+                const file = e.target.files[0];
+                if (file) {
+                  const reader = new FileReader();
+                  reader.onloadend = () => {
+                    manejarCambioInput({
+                      target: { name: 'imagen', value: reader.result.split(',')[1] } // Extrae solo la parte Base64
+                    });
+                  };
+                  reader.readAsDataURL(file);
+                }
+              }}
             />
           </Form.Group>
           {errorCarga && (

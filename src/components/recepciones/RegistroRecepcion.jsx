@@ -40,8 +40,8 @@ const RegistroRecepcion = ({
               name="estado_recepcion"
               value={nuevaRecepcion.estado_recepcion}
               onChange={manejarCambioInput}
-              placeholder="Ingresa el estado de recepción (máx. 30 caracteres)"
-              maxLength={30}
+              placeholder="Ingresa el estado de recepción (máx. 100 caracteres)"
+              maxLength={100}
               required
             />
           </Form.Group>

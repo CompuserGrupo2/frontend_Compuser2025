@@ -35,6 +35,7 @@ const TablaServicios = ({ servicios,
           <th>ID Servicio</th>
           <th>Descripción</th>
           <th>Costo</th>
+          <th>Imagen</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -44,6 +45,17 @@ const TablaServicios = ({ servicios,
             <td>{servicio.id_ser}</td>
             <td>{servicio.descripcion}</td>
             <td>{servicio.costo}</td>
+            <td>
+              {servicio.imagen ? (
+                <img
+                  src={`data:image/png;base64,${servicio.imagen}`}
+                  alt={servicio.descripcion}
+                  style={{ maxWidth: '100px' }}
+                />
+              ) : (
+                'Sin imagen'
+              )}
+            </td>
             <td>
               <Button
                 variant="outline-primary"

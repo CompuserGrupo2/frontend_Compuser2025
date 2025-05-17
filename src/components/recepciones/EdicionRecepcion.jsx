@@ -39,8 +39,8 @@ const EdicionRecepcion = ({
               name="estado_recepcion"
               value={recepcionEditada?.estado_recepcion || ''}
               onChange={manejarCambioInputEdicion}
-              placeholder="Ingresa el estado de recepción (máx. 30 caracteres)"
-              maxLength={30}
+              placeholder="Ingresa el estado de recepción (máx. 100 caracteres)"
+              maxLength={100}
               required
             />
           </Form.Group>

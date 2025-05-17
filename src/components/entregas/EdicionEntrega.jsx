@@ -39,8 +39,8 @@ const EdicionEntrega = ({
               name="estado_entrega"
               value={entregaEditada?.estado_entrega || ''}
               onChange={manejarCambioInputEdicion}
-              placeholder="Ingresa el estado de entrega (máx. 30 caracteres)"
-              maxLength={30}
+              placeholder="Ingresa el estado de entrega (máx. 100 caracteres)"
+              maxLength={100}
               required
             />
           </Form.Group>

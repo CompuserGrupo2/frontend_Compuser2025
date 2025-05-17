@@ -10,6 +10,7 @@ import Diagnosticos from "./views/Diagnosticos";
 import Equipos from "./views/Equipos";
 import Entregas from "./views/Entregas";
 import Recepciones from "./views/Recepciones";
+import CatalogoServicios from "./views/CatalogoServicios";
 
 import './App.css';
 
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/equipos" element={<Equipos />} />
         <Route path="/entregas" element={<Entregas />} />
         <Route path="/recepciones" element={<Recepciones />} />
+        <Route path="/catalogo" element={<CatalogoServicios />} />
       </Routes>
       </main>
     </Router>

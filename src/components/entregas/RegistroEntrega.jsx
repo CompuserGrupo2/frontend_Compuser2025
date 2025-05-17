@@ -40,8 +40,8 @@ const RegistroEntrega = ({
               name="estado_entrega"
               value={nuevaEntrega.estado_entrega}
               onChange={manejarCambioInput}
-              placeholder="Ingresa el estado de entrega (máx. 30 caracteres)"
-              maxLength={30}
+              placeholder="Ingresa el estado de entrega (máx. 100 caracteres)"
+              maxLength={100}
               required
             />
           </Form.Group>

@@ -15,7 +15,7 @@ const Servicios = () => {
 
   const [mostrarModal, setMostrarModal] = useState(false);
   const [nuevoServicio, setNuevoServicio] = useState({
-    descripcion: '', costo: ''
+    descripcion: '', costo: '', imagen: ''
   });
 
   //Busqueda
@@ -24,7 +24,7 @@ const Servicios = () => {
 
   //Paginación
   const [paginaActual, establecerPaginaActual] = useState(1);
-  const elementosPorPagina = 4; // Número de elementos por página
+  const elementosPorPagina = 3; // Número de elementos por página
   
   //Eliminación
   const [mostrarModalEliminacion, setMostrarModalEliminacion] = useState(false);
@@ -68,7 +68,7 @@ const Servicios = () => {
   // Manejo la inserción de una nueva categoría
   const agregarServicio = async () => {
 
-    if (!nuevoServicio.descripcion || !nuevoServicio.costo) {
+    if (!nuevoServicio.descripcion || !nuevoServicio.costo || !nuevoServicio.imagen) {
     setErrorCarga("Por favor, completa todos los campos antes de guardar.");
     return;
     }
@@ -154,7 +154,7 @@ const Servicios = () => {
   };
 
   const actualizarServicio = async () => {
-    if (!servicioEditado?.descripcion || !servicioEditado?.costo)
+    if (!servicioEditado?.descripcion || !servicioEditado?.costo || !servicioEditado.imagen)
         {
       setErrorCarga("Por favor, completa todos los campos antes de guardar.");
       return;
@@ -169,6 +169,7 @@ const Servicios = () => {
         body: JSON.stringify({
           descripcion: servicioEditado.descripcion,
           costo: servicioEditado.costo,
+          imagen: servicioEditado.imagen
         }),
       });
 

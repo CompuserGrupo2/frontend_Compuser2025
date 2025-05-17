@@ -24,8 +24,8 @@ const EdicionServicio = ({
               name="descripcion"
               value={servicioEditado?.descripcion || ''}
               onChange={manejarCambioInputEdicion}
-              placeholder="Ingresa la descripción del servicio (máx. 40 caracteres)"
-              maxLength={40}
+              placeholder="Ingresa la descripción del servicio (máx. 80 caracteres)"
+              maxLength={80}
               required
             />
           </Form.Group>
@@ -40,6 +40,36 @@ const EdicionServicio = ({
               min={0}
               step={0.01}
               required
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formImagenServicio">
+            <Form.Label>Imagen</Form.Label>
+            {servicioEditado?.imagen && (
+              <div>
+                <img
+                  src={`data:image/png;base64,${servicioEditado.imagen}`}
+                  alt="Imagen actual"
+                  style={{ maxWidth: '100px', marginBottom: '10px' }}
+                />
+              </div>
+            )}
+            <Form.Control
+              type="file"
+              name="imagen"
+              accept="image/*"
+              onChange={(e) => {
+                const file = e.target.files[0];
+                if (file) {
+                  const reader = new FileReader();
+                  reader.onloadend = () => {
+                    manejarCambioInputEdicion({
+                      target: { name: 'imagen', value: reader.result.split(',')[1] }
+                    });
+                  };
+                  reader.readAsDataURL(file);
+                }
+              }}
             />
           </Form.Group>
           {errorCarga && (
