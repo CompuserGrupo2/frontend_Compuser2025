@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Container, Nav, Navbar, Offcanvas } from "react-bootstrap";
+import { Container, Nav, Navbar, NavDropdown, Offcanvas } from "react-bootstrap";
 import logocompuser from "/Logo_Compuser.png";
 import "bootstrap-icons/font/bootstrap-icons.css"; // Importación de íconos de Bootstrap
 import "../../App.css"; // Estilos personalizados de la aplicación
@@ -110,45 +110,97 @@ const Encabezado = () => {
                 <strong>Empleados</strong>
               </Nav.Link>
 
-              <Nav.Link
-                onClick={() => navegarA("/servicios")}
-                className={estaColapsado ? "text-black" : "text-white"}
+              <NavDropdown 
+                title={
+                  <span>
+                    {estaColapsado && <i className="bi-bag-heart-fill me-2"></i>}
+                    Servicios
+                  </span>
+                }
+                id="basic-nav-dropdown"  
+                className={estaColapsado ? "titulo-negro" : "titulo-blanco"}
               >
-                {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
-                <strong>Servicios</strong>
-              </Nav.Link>
+                <NavDropdown.Item
+                  onClick={() => navegarA("/servicios")}
+                  className="text-black"
+                >
+                  {estaColapsado ? <i className="bi-box2-heart-fill me-2"></i> : null}
+                  <strong>Gestión de servicios</strong>
+                </NavDropdown.Item>
 
-              <Nav.Link
-                onClick={() => navegarA("/catalogo")}
-                className={estaColapsado ? "text-black" : "text-white"}
-              >
-                {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
-                <strong>Catalogo</strong>
-              </Nav.Link>
+                <NavDropdown.Item
+                  className="text-black"
+                  onClick={() => navegarA("/catalogo")}
+                >
+                  {estaColapsado ? <i className="bi-bookmarks-fill me-2"></i> : null}
+                  <strong>Catalogo de servicios</strong>
+                </NavDropdown.Item>
 
-              <Nav.Link
-                onClick={() => navegarA("/diagnosticos")}
-                className={estaColapsado ? "text-black" : "text-white"}
-              >
-                {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
-                <strong>Diagnosticos</strong>
-              </Nav.Link>
+              </NavDropdown>
 
-              <Nav.Link
-                onClick={() => navegarA("/entregas")}
-                className={estaColapsado ? "text-black" : "text-white"}
+              <NavDropdown 
+                title={
+                  <span>
+                    {estaColapsado && <i className="bi-bag-heart-fill me-2"></i>}
+                    Operaciones
+                  </span>
+                }
+                id="basic-nav-dropdown"  
+                className={estaColapsado ? "titulo-negro" : "titulo-blanco"}
               >
-                {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
-                <strong>Entregas</strong>
-              </Nav.Link>
+                <NavDropdown.Item
+                  onClick={() => navegarA("/diagnosticos")}
+                  className="text-black"
+                >
+                  {estaColapsado ? <i className="bi-box2-heart-fill me-2"></i> : null}
+                  <strong>Gestión de Diagnósticos</strong>
+                </NavDropdown.Item>
 
-              <Nav.Link
-                onClick={() => navegarA("/recepciones")}
-                className={estaColapsado ? "text-black" : "text-white"}
+                <NavDropdown.Item
+                  className="text-black"
+                  onClick={() => navegarA("/recepciones")}
+                >
+                  {estaColapsado ? <i className="bi-bookmarks-fill me-2"></i> : null}
+                  <strong>Control de recepciones</strong>
+                </NavDropdown.Item>
+
+                 <NavDropdown.Item
+                  className="text-black"
+                  onClick={() => navegarA("/entregas")}
+                >
+                  {estaColapsado ? <i className="bi-bookmarks-fill me-2"></i> : null}
+                  <strong>Control de entregas</strong>
+                </NavDropdown.Item>
+
+              </NavDropdown>
+
+              <NavDropdown 
+                title={
+                  <span>
+                    {estaColapsado && <i className="bi-bag-heart-fill me-2"></i>}
+                    Gráficos
+                  </span>
+                }
+                id="basic-nav-dropdown"  
+                className={estaColapsado ? "titulo-negro" : "titulo-blanco"}
               >
-                {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
-                <strong>Recepciones</strong>
-              </Nav.Link>
+                <NavDropdown.Item
+                  onClick={() => navegarA("/estadisticas")}
+                  className="text-black"
+                >
+                  {estaColapsado ? <i className="bi-box2-heart-fill me-2"></i> : null}
+                  <strong>Estadísticas</strong>
+                </NavDropdown.Item>
+
+                <NavDropdown.Item
+                  className="text-black"
+                  onClick={() => navegarA("/dashboard")}
+                >
+                  {estaColapsado ? <i className="bi-bookmarks-fill me-2"></i> : null}
+                  <strong>Dashboard</strong>
+                </NavDropdown.Item>
+
+              </NavDropdown>
 
               {/* Lógica condicional para mostrar Cerrar Sesión o Iniciar Sesión */}
               {estaLogueado ? (

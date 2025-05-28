@@ -11,6 +11,8 @@ import Equipos from "./views/Equipos";
 import Entregas from "./views/Entregas";
 import Recepciones from "./views/Recepciones";
 import CatalogoServicios from "./views/CatalogoServicios";
+import Estadisticas from "./views/Estadisticas";
+import Dashboard from "./views/Dashboard";
 
 import './App.css';
 
@@ -31,6 +33,8 @@ const App = () => {
         <Route path="/entregas" element={<Entregas />} />
         <Route path="/recepciones" element={<Recepciones />} />
         <Route path="/catalogo" element={<CatalogoServicios />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/estadisticas" element={<Estadisticas />} />
       </Routes>
       </main>
     </Router>
