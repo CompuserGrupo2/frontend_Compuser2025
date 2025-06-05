@@ -13,7 +13,8 @@ const TablaServicios = ({ servicios,
   paginaActual,
   establecerPaginaActual,
   abrirModalEliminacion,
-  abrirModalEdicion
+  abrirModalEdicion,
+  generarPDFDetalleServicio
 }) => {
   // Renderizado condicional según el estado recibido por props
   if (cargando) {
@@ -57,6 +58,14 @@ const TablaServicios = ({ servicios,
               )}
             </td>
             <td>
+              <Button
+                variant="outline-success"
+                size="sm"
+                className="me-2"
+                onClick={() => generarPDFDetalleServicio(servicio)}
+              >
+                <i className="bi bi-filetype-pdf"></i>
+              </Button>
               <Button
                 variant="outline-primary"
                 size="sm"
