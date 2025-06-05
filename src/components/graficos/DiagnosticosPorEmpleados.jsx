@@ -1,5 +1,5 @@
 import { Card, Button } from "react-bootstrap";
-import { Bar} from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import { useRef } from "react";
 import jsPDF from "jspdf";

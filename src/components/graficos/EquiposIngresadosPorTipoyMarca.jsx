@@ -5,15 +5,15 @@ import { useRef } from "react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
-const EquiporPorTipoyMarca = ({ equipos, cantidad }) => {
+const EquiposIngresadosPorTipoyMarca = ({ equipos, total_ingresados }) => {
   const data = {
-    labels: equipos, //Nombres de los meses
+    labels: equipos, 
     datasets: [
       {
         label: 'Diagnósticos',
-        data: cantidad, //total de diagnósticos por mes
-        backgroundColor: 'rgba(0, 192, 150, 0.75)',
-        borderColor: 'rgba(29, 238, 245, 0.5)',
+        data: total_ingresados, 
+        backgroundColor: 'rgba(192, 61, 0, 0.75)',
+        borderColor: 'rgba(245, 169, 29, 0.5)',
         borderWidth: 1,
       },
     ],
@@ -31,7 +31,7 @@ const EquiporPorTipoyMarca = ({ equipos, cantidad }) => {
         beginAtZero: true,
         title: {
           display: true,
-          text: 'Cantidad',
+          text: 'Total Ingresados',
         },
       },
       x: {
@@ -53,7 +53,7 @@ const EquiporPorTipoyMarca = ({ equipos, cantidad }) => {
     doc.rect(0, 0, doc.internal.pageSize.getWidth(), 30, "F");
     doc.setTextColor(255,255,255);
     doc.setFontSize(22);
-    doc.text("Reporte de Cantidad de Equipos por Tipo y Marca", doc.internal.pageSize.getWidth() / 2, 20, {align: "center"});
+    doc.text("Reporte de Equipos ingresados", doc.internal.pageSize.getWidth() / 2, 20, {align: "center"});
     
     //Capturar gráfico como imagen
     const chartInstance = chartRef.current;
@@ -65,8 +65,8 @@ const EquiporPorTipoyMarca = ({ equipos, cantidad }) => {
     }
    
     //Tabla de datos
-    const columnas = ["Equipos", "Cantidad de Diagnósticos"];
-    const filas = equipos.map((equipo, index) => [equipo, cantidad[index]]);
+    const columnas = ["Equipos", "Ingresos en el sistema"];
+    const filas = equipos.map((equipo, index) => [equipo, total_ingresados[index]]);
   
     autoTable(doc, {
       head: [columnas],
@@ -82,7 +82,7 @@ const EquiporPorTipoyMarca = ({ equipos, cantidad }) => {
     const dia = String(fecha.getDate()).padStart(2, '0');
     const mes = String(fecha.getMonth() +1).padStart(2, '0');
     const anio = fecha.getFullYear();
-    const nombreArchivo = `EquiposPorTipoyMarca_${dia}_${mes}_${anio}.pdf`;
+    const nombreArchivo = `EquiposIngresados_${dia}_${mes}_${anio}.pdf`;
     
     //Guardar PDF
     doc.save(nombreArchivo);
@@ -92,7 +92,7 @@ const EquiporPorTipoyMarca = ({ equipos, cantidad }) => {
 return (
   <Card style={{ height: "100%" }}>
     <Card.Body>
-      <Card.Title> Cantidad de Equipos </Card.Title>
+      <Card.Title> Equipos Ingresados </Card.Title>
       <div style={{ height: "300px", justifyContent: "center", alignItems: "center", display: "flex" }}>
         <Bar ref={chartRef} data={data} options={options} />
       </div>
@@ -103,4 +103,4 @@ return (
   </Card>
 );
 };
-export default EquiporPorTipoyMarca;
+export default EquiposIngresadosPorTipoyMarca;

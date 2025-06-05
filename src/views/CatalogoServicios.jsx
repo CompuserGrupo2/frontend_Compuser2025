@@ -30,7 +30,7 @@ const CatalogoServicios = () => {
 
   return (
     <Container className="mt-5">
-      <h4>Catálogo de Servicios</h4>
+    <h4 style={{ fontWeight: 'bold' }}>Catálogo de Servicios</h4>
       <Row>
         {listaServicios.map((servicio, indice) => (
           <Tarjeta

@@ -14,8 +14,8 @@ const GananciasMensuales = ({ meses, ingresos_mensuales }) => {
         data: ingresos_mensuales, //total de diagnósticos por mes
         backgroundColor: 'rgba(70, 179, 241, 0.75)',
         borderColor: 'rgba(75, 192, 192, 1)',
-        pointBackgroundColor: 'rgb(76, 0, 255)', // Color de los puntos
-        borderWidth: 1,
+        pointBackgroundColor: 'rgb(76, 0, 255, 1)', // Color de los puntos
+        borderWidth: 2,
       },
     ],
   };

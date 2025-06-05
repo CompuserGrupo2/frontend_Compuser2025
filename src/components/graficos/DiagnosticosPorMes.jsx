@@ -1,5 +1,5 @@
 import { Card, Button } from "react-bootstrap";
-import { Bar} from 'react-chartjs-2';
+import { Line} from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import { useRef } from "react";
 import jsPDF from "jspdf";
@@ -13,8 +13,9 @@ const DiagnosticosPorMes = ({ meses, total_diagnosticos }) => {
         label: 'Diagnósticos',
         data: total_diagnosticos, //total de diagnósticos por mes
         backgroundColor: 'rgba(192, 0, 0, 0.75)',
-        borderColor: 'rgba(245, 29, 0, 0.5)',
+        borderColor: 'rgba(245, 29, 0, 1)',
         borderWidth: 2,
+        tension: 0.3,
       },
     ],
   };
@@ -53,7 +54,7 @@ const DiagnosticosPorMes = ({ meses, total_diagnosticos }) => {
     doc.rect(0, 0, doc.internal.pageSize.getWidth(), 30, "F");
     doc.setTextColor(255,255,255);
     doc.setFontSize(22);
-    doc.text("Reporte de Diagnosticos por Empleados", doc.internal.pageSize.getWidth() / 2, 20, {align: "center"});
+    doc.text("Reporte de Diagnosticos por meses", doc.internal.pageSize.getWidth() / 2, 20, {align: "center"});
       
     //Capturar gráfico como imagen
     const chartInstance = chartRef.current;
@@ -94,7 +95,7 @@ return (
     <Card.Body>
       <Card.Title>Diagnósticos por Mes</Card.Title>
       <div style={{ height: "300px", justifyContent: "center", alignItems: "center", display: "flex" }}>
-        <Bar ref={chartRef} data={data} options={options} />
+        <Line ref={chartRef} data={data} options={options} />
       </div>
       <Button className="btn btn-primary mt-3" onClick={generarPDF}>
         Generar Reporte <i className="bi bi-download"></i>

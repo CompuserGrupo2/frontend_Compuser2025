@@ -1,20 +1,36 @@
 import { Card, Button } from "react-bootstrap";
-import { Bar } from 'react-chartjs-2';
+import { Bar} from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import { useRef } from "react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
-const EquiporPorTipoyMarca = ({ equipos, cantidad }) => {
+const DiagnosticosPorDia = ({ dias, total_diagnosticos }) => {
   const data = {
-    labels: equipos, //Nombres de los meses
+    labels: dias, //Nombres de los meses
     datasets: [
       {
         label: 'Diagnósticos',
-        data: cantidad, //total de diagnósticos por mes
-        backgroundColor: 'rgba(0, 192, 150, 0.75)',
-        borderColor: 'rgba(29, 238, 245, 0.5)',
-        borderWidth: 1,
+        data: total_diagnosticos, //total de diagnósticos por mes
+        backgroundColor: [
+          'rgba(70, 252, 228, 0.5)',
+          'rgba(255, 86, 227, 0.5)',
+          'rgba(252, 255, 86, 0.5)',
+          'rgba(112, 87, 253, 0.5)',
+          'rgba(255, 201, 102, 0.5)',
+          'rgba(100, 255, 86, 0.5)',
+          'rgba(255, 38, 38, 0.5)',
+        ],
+        borderColor: [
+          'rgb(79, 182, 250)',
+          'rgba(255, 86, 227, 0.5)',
+          'rgb(252, 255, 86)',
+          'rgb(151, 105, 241)',
+          'rgba(233, 178, 59, 0.77)',
+          'rgba(35, 235, 68, 0.5)',
+          'rgba(235, 20, 20, 0.5)',
+        ],
+        borderWidth: 2,
       },
     ],
   };
@@ -37,37 +53,37 @@ const EquiporPorTipoyMarca = ({ equipos, cantidad }) => {
       x: {
         title: {
           display: true,
-          text: 'equipos',
+          text: 'Dias',
         },
       },
     },
   };
 
   const chartRef = useRef(null);
-    
+      
   const generarPDF = () => {
     const doc = new jsPDF();
-    
+      
     // Encabezado 
     doc.setFillColor(28,41,51);
     doc.rect(0, 0, doc.internal.pageSize.getWidth(), 30, "F");
     doc.setTextColor(255,255,255);
     doc.setFontSize(22);
-    doc.text("Reporte de Cantidad de Equipos por Tipo y Marca", doc.internal.pageSize.getWidth() / 2, 20, {align: "center"});
-    
+    doc.text("Reporte de Diagnosticos por Dias", doc.internal.pageSize.getWidth() / 2, 20, {align: "center"});
+      
     //Capturar gráfico como imagen
     const chartInstance = chartRef.current;
     const chartCanvas = chartInstance?.canvas;
     const chartImage = chartCanvas?.toDataURL("image/png", 1.0);
-    
+      
     if(chartImage) {
       doc.addImage(chartImage, "PNG", 14, 40, 180, 100);
     }
-   
+     
     //Tabla de datos
-    const columnas = ["Equipos", "Cantidad de Diagnósticos"];
-    const filas = equipos.map((equipo, index) => [equipo, cantidad[index]]);
-  
+    const columnas = ["dia", "Diagnóstico"];
+    const filas = dias.map((dia, index) => [dia, total_diagnosticos[index]]);
+    
     autoTable(doc, {
       head: [columnas],
       body: filas,
@@ -76,14 +92,14 @@ const EquiporPorTipoyMarca = ({ equipos, cantidad }) => {
       styles: { fontSize: 10, cellPadding: 2 },
       margin: { top: 20, left: 14, right: 14 },
     });
-    
+      
     //Generar un nombre dinámico para el archivo PDF
     const fecha = new Date();
     const dia = String(fecha.getDate()).padStart(2, '0');
     const mes = String(fecha.getMonth() +1).padStart(2, '0');
     const anio = fecha.getFullYear();
-    const nombreArchivo = `EquiposPorTipoyMarca_${dia}_${mes}_${anio}.pdf`;
-    
+    const nombreArchivo = `DiagnósticosporDia_${dia}_${mes}_${anio}.pdf`;
+      
     //Guardar PDF
     doc.save(nombreArchivo);
   }
@@ -92,7 +108,7 @@ const EquiporPorTipoyMarca = ({ equipos, cantidad }) => {
 return (
   <Card style={{ height: "100%" }}>
     <Card.Body>
-      <Card.Title> Cantidad de Equipos </Card.Title>
+      <Card.Title>Diagnósticos por Dia</Card.Title>
       <div style={{ height: "300px", justifyContent: "center", alignItems: "center", display: "flex" }}>
         <Bar ref={chartRef} data={data} options={options} />
       </div>
@@ -103,4 +119,4 @@ return (
   </Card>
 );
 };
-export default EquiporPorTipoyMarca;
+export default DiagnosticosPorDia;

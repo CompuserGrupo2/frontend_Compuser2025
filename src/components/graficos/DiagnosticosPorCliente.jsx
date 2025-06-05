@@ -13,8 +13,9 @@ const DiagnosticosPorCliente = ({ clientes, total_diagnosticos }) => {
         label: 'Diagnósticos',
         data: total_diagnosticos, //total de diagnósticos por mes
         backgroundColor: 'rgba(192, 0, 176, 0.75)',
-        borderColor: 'rgba(245, 29, 198, 0.5)',
+        borderColor: 'rgba(245, 29, 198, 1)',
         borderWidth: 2,
+        tension: 0.3,
       },
     ],
   };
