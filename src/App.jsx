@@ -13,30 +13,36 @@ import Recepciones from "./views/Recepciones";
 import CatalogoServicios from "./views/CatalogoServicios";
 import Estadisticas from "./views/Estadisticas";
 import Dashboard from "./views/Dashboard";
+import RutaProtegida from "./components/rutas/RutaProtegida";
+import PiePagina from "./components/infopie/PiePagina";
 
 import './App.css';
 
 const App = () => {
   return (
     <Router>
-      <main className="margen-superior-main">
-      <Encabezado />
-      <Routes>
 
-        <Route path="/" element={<Login />} />
-        <Route path="/inicio" element={<Inicio />} />
-        <Route path="/servicios" element={<Servicios />} />
-        <Route path="/clientes" element={<Clientes />} />
-        <Route path="/empleados" element={<Empleados />} />
-        <Route path="/diagnosticos" element={<Diagnosticos />} />
-        <Route path="/equipos" element={<Equipos />} />
-        <Route path="/entregas" element={<Entregas />} />
-        <Route path="/recepciones" element={<Recepciones />} />
-        <Route path="/catalogo" element={<CatalogoServicios />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/estadisticas" element={<Estadisticas />} />
-      </Routes>
-      </main>
+      <div className="app-wrapper">
+
+        <Encabezado />
+        <main className="margen-superior-main content">
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/inicio" element={<RutaProtegida vista={<Inicio />} />} />
+          <Route path="/servicios" element={<RutaProtegida vista={<Servicios />} />} />
+          <Route path="/clientes" element={<RutaProtegida vista={<Clientes />} />} />
+          <Route path="/empleados" element={<RutaProtegida vista={<Empleados />} />} />
+          <Route path="/diagnosticos" element={<RutaProtegida vista={<Diagnosticos />} />} />
+          <Route path="/equipos" element={<RutaProtegida vista={<Equipos />} />} />
+          <Route path="/entregas" element={<RutaProtegida vista={<Entregas />} />} />
+          <Route path="/recepciones" element={<RutaProtegida vista={<Recepciones />} />} />
+          <Route path="/catalogo" element={<RutaProtegida vista={<CatalogoServicios />} />} />
+          <Route path="/dashboard" element={<RutaProtegida vista={<Dashboard />} />} />
+          <Route path="/estadisticas" element={<RutaProtegida vista={<Estadisticas />} />} />
+        </Routes>
+        </main>
+        <PiePagina />
+      </div>
     </Router>
   );
 };
