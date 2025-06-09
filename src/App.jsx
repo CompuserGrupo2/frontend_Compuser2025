@@ -16,6 +16,7 @@ import Estadisticas from "./views/Estadisticas";
 import Dashboard from "./views/Dashboard";
 import RutaProtegida from "./components/rutas/RutaProtegida";
 import PiePagina from "./components/infopie/PiePagina";
+import ControlCalificaciones from "./views/ControlCalificaciones";
 
 import './App.css';
 
@@ -41,6 +42,7 @@ const App = () => {
           <Route path="/catalogo" element={<RutaProtegida vista={<CatalogoServicios />} />} />
           <Route path="/dashboard" element={<RutaProtegida vista={<Dashboard />} />} />
           <Route path="/estadisticas" element={<RutaProtegida vista={<Estadisticas />} />} />
+          <Route path="/calificaciones" element={<RutaProtegida vista={<ControlCalificaciones />} />} />
         </Routes>
         </main>
         <PiePagina />

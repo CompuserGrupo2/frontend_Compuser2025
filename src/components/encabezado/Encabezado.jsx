@@ -149,6 +149,14 @@ const Encabezado = () => {
                       <strong>Catalogo de servicios</strong>
                     </NavDropdown.Item>
 
+                    <NavDropdown.Item
+                      className="text-black"
+                      onClick={() => navegarA("/calificaciones")}
+                    >
+                      {estaColapsado ? <i className="bi-bookmarks-fill me-2"></i> : null}
+                      <strong>Control de calificaciones</strong>
+                    </NavDropdown.Item>
+
                   </NavDropdown>
 
                   <NavDropdown 

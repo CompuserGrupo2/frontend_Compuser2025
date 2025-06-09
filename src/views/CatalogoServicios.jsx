@@ -39,6 +39,7 @@ const CatalogoServicios = () => {
             descripcion={servicio.descripcion}
             costo={servicio.costo}
             imagen={servicio.imagen}
+            id_ser={servicio.id_ser}
           />
         ))}
       </Row>
