@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./views/Login";
+import Usuarios from "./views/Usuarios";
 import Inicio from "./views/Inicio";
 import Servicios from "./views/Servicios";
 import Encabezado from "./components/encabezado/Encabezado";
@@ -28,6 +29,7 @@ const App = () => {
         <main className="margen-superior-main content">
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/usuario" element={<RutaProtegida vista={<Usuarios />} />} />
           <Route path="/inicio" element={<RutaProtegida vista={<Inicio />} />} />
           <Route path="/servicios" element={<RutaProtegida vista={<Servicios />} />} />
           <Route path="/clientes" element={<RutaProtegida vista={<Clientes />} />} />

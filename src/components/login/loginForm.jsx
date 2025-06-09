@@ -2,7 +2,14 @@ import React from "react";
 import { Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
 import "../../app.css";
 
-const LoginForm = ({ email, password, error, setEmail, setPassword, manejarEnvio }) => {
+const LoginForm = ({
+  email,
+  password,
+  error,
+  setEmail,
+  setPassword,
+  manejarEnvio
+}) => {
   return (
     <Row className="w-100 justify-content-center">
       <Col md={6} lg={5} xl={4}>

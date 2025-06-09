@@ -9,6 +9,46 @@ const RegistroCliente = ({
   agregarCliente,
   errorCarga,
 }) => {
+
+  const validacionFormulario = () => {
+    return(
+      nuevoCliente.nombre.trim() !== "" &&
+      nuevoCliente.apellido.trim() !== "" &&
+      nuevoCliente.direccion.trim() !== "" &&
+      nuevoCliente.tipo_cli.trim() !== "" &&
+      nuevoCliente.telefono.trim() !== "" &&
+      nuevoCliente.cedula.trim() !== "" 
+    );
+  };
+
+  const validarLetras = (e) => {
+    const charCode = e.which ? e.which : e.keyCode;
+    // Permitir solo letras {A-Z, a-z}
+    if(
+      (charCode < 65 || charCode > 90) && //Letras mayúsculas
+      (charCode < 97 || charCode > 122) && //Letras minúsculas
+      charCode !== 8 && //Retroceso
+      charCode !== 46 && //Borrar
+      charCode !== 9 //Tab
+    ) {
+      e.preventDefault(); //Evita que se escriba el carácter
+    }
+  };
+
+  const validarNumeros = (e) => {
+    const charCode = e.which ? e.which : e.keyCode;
+    // Permitir solo números (0-9), retroceso, borrar y tabb
+    if(
+      (charCode < 48 || charCode > 57) && // Números (0-9)
+      charCode !== 8 && //Retroceso
+      charCode !== 46 && //Borrar
+      charCode !== 9 //Tab
+    ) {
+      e.preventDefault(); //Evita que se escriba el carácter
+    }
+  };
+
+
   return (
     <Modal show={mostrarModal} onHide={() => setMostrarModal(false)}>
       <Modal.Header closeButton>
@@ -23,6 +63,7 @@ const RegistroCliente = ({
               name="nombre"
               value={nuevoCliente.nombre}
               onChange={manejarCambioInput}
+              onKeyDown={validarLetras}
               placeholder="Ingresa el nombre (máx. 20 caracteres)"
               maxLength={20}
               required
@@ -35,6 +76,7 @@ const RegistroCliente = ({
               name="apellido"
               value={nuevoCliente.apellido}
               onChange={manejarCambioInput}
+              onKeyDown={validarLetras}
               placeholder="Ingresa el apellido (máx. 30 caracteres)"
               maxLength={30}
               required
@@ -59,6 +101,7 @@ const RegistroCliente = ({
               name="tipo_cli"
               value={nuevoCliente.tipo_cli}
               onChange={manejarCambioInput}
+              onKeyDown={validarLetras}
               placeholder="Ingresa el tipo de cliente (máx. 20 caracteres)"
               maxLength={20}
               required
@@ -71,6 +114,7 @@ const RegistroCliente = ({
               name="telefono"
               value={nuevoCliente.telefono}
               onChange={manejarCambioInput}
+              onKeyDown={validarNumeros}
               placeholder="Ingresa el teléfono (máx. 8 caracteres)"
               maxLength={8}
               required
@@ -99,7 +143,7 @@ const RegistroCliente = ({
         }}>
           Cancelar
         </Button>
-        <Button variant="primary" onClick={agregarCliente}>
+        <Button variant="primary" disabled={!validacionFormulario()} onClick={agregarCliente}>
           Guardar Cliente
         </Button>
       </Modal.Footer>

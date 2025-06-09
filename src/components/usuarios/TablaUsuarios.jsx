@@ -4,8 +4,9 @@ import { Table, Button } from 'react-bootstrap';
 import Paginacion from '../ordenamiento/Paginacion';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-// Declaración del componente TablaServicios que recibe props
-const TablaServicios = ({ servicios,
+// Declaración del componente TablaClientes que recibe props
+const TablaUsuarios = ({
+  usuarios,
   cargando,
   error,
   totalElementos,
@@ -13,12 +14,12 @@ const TablaServicios = ({ servicios,
   paginaActual,
   establecerPaginaActual,
   abrirModalEliminacion,
-  abrirModalEdicion,
-  generarPDFDetalleServicio
-}) => {
+  abrirModalEdicion
+  }) => {
+
   // Renderizado condicional según el estado recibido por props
   if (cargando) {
-    return <div>Cargando servicios...</div>; // Muestra mensaje mientras carga
+    return <div>Cargando Usuarios...</div>; // Muestra mensaje mientras carga
   }
   if (error) {
     return <div>Error: {error}</div>;         // Muestra error si ocurre
@@ -33,44 +34,24 @@ const TablaServicios = ({ servicios,
     <Table striped bordered hover responsive>
       <thead className='table-dark'>
         <tr>
-          <th>ID Servicio</th>
-          <th>Descripción</th>
-          <th>Costo</th>
-          <th>Imagen</th>
+          <th>ID Usuario</th>
+          <th>Usuario</th>
+          <th>Contraseña</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
-        {servicios.map((servicio) => (
-          <tr key={servicio.id_ser}>
-            <td>{servicio.id_ser}</td>
-            <td>{servicio.descripcion}</td>
-            <td>C$ {servicio.costo}</td>
+        {usuarios.map((usuari) => (
+          <tr key={usuari.id_usuario}>
+            <td>{usuari.id_usuario}</td>
+            <td>{usuari.usuario}</td>
+            <td>{'*'.repeat(usuari.contraseña.length)}</td>
             <td>
-              {servicio.imagen ? (
-                <img
-                  src={`data:image/png;base64,${servicio.imagen}`}
-                  alt={servicio.descripcion}
-                  style={{ maxWidth: '100px' }}
-                />
-              ) : (
-                'Sin imagen'
-              )}
-            </td>
-            <td>
-              <Button
-                variant="outline-success"
-                size="sm"
-                className="me-2"
-                onClick={() => generarPDFDetalleServicio(servicio)}
-              >
-                <i className="bi bi-filetype-pdf"></i>
-              </Button>
               <Button
                 variant="outline-primary"
                 size="sm"
                 className="me-2"
-                onClick={() => abrirModalEdicion(servicio)}
+                onClick={() => abrirModalEdicion(usuari)}
               >
                 <i className="bi bi-pencil"></i>
               </Button>
@@ -78,7 +59,7 @@ const TablaServicios = ({ servicios,
                 variant="outline-danger"
                 size="sm"
                 className="me-2"
-                onClick={() => abrirModalEliminacion(servicio)}
+                onClick={() => abrirModalEliminacion(usuari)}
               >
                 <i className="bi bi-trash"></i>
               </Button>
@@ -87,6 +68,7 @@ const TablaServicios = ({ servicios,
         ))}
       </tbody>
     </Table>
+
     {/* Paginación fijada abajo del contenedor de la tabla */}
     <div className="mt-auto">
       <Paginacion
@@ -101,4 +83,4 @@ const TablaServicios = ({ servicios,
 };
 
 // Exportación del componente
-export default TablaServicios;
+export default TablaUsuarios;

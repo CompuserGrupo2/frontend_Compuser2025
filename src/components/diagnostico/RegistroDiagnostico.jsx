@@ -128,6 +128,33 @@ const RegistroDiagnostico = ({
     setServicioSeleccionado(null);
   };
 
+  const validarLetras = (e) => {
+    const charCode = e.which ? e.which : e.keyCode;
+    // Permitir solo letras {A-Z, a-z}
+    if(
+      (charCode < 65 || charCode > 90) && //Letras mayúsculas
+      (charCode < 97 || charCode > 122) && //Letras minúsculas
+      charCode !== 8 && //Retroceso
+      charCode !== 46 && //Borrar
+      charCode !== 9 //Tab
+    ) {
+      e.preventDefault(); //Evita que se escriba el carácter
+    }
+  };
+
+  const validarNumeros = (e) => {
+    const charCode = e.which ? e.which : e.keyCode;
+    // Permitir solo números (0-9), retroceso, borrar y tabb
+    if(
+      (charCode < 48 || charCode > 57) && // Números (0-9)
+      charCode !== 8 && //Retroceso
+      charCode !== 46 && //Borrar
+      charCode !== 9 //Tab
+    ) {
+      e.preventDefault(); //Evita que se escriba el carácter
+    }
+  };
+
   return (
     <Modal
       show={mostrarModal}
@@ -149,6 +176,7 @@ const RegistroDiagnostico = ({
                   defaultOptions
                   loadOptions={cargarClientes}
                   onChange={manejarCambioCliente}
+                  onKeyDown={validarLetras}
                   value={clienteSeleccionado}
                   placeholder="Buscar cliente..."
                   isClearable
@@ -163,6 +191,7 @@ const RegistroDiagnostico = ({
                   defaultOptions
                   loadOptions={cargarEquipos}
                   onChange={manejarCambioEquipo}
+                  onKeyDown={validarLetras}
                   value={equipoSeleccionado}
                   placeholder="Buscar equipo..."
                   isClearable
@@ -177,6 +206,7 @@ const RegistroDiagnostico = ({
                   defaultOptions
                   loadOptions={cargarEmpleados}
                   onChange={manejarCambioEmpleado}
+                  onKeyDown={validarLetras}
                   value={empleadoSeleccionado}
                   placeholder="Buscar empleado..."
                   isClearable
@@ -222,6 +252,7 @@ const RegistroDiagnostico = ({
                   cacheOptions
                   defaultOptions
                   loadOptions={cargarServicios}
+                  onKeyDown={validarLetras}
                   onChange={manejarCambioServicio}
                   value={servicioSeleccionado}
                   placeholder="Buscar servicio..."

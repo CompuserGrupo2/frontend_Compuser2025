@@ -10,6 +10,32 @@ const RegistroEquipo = ({
   errorCarga,
   clientes // Lista de clientes obtenidos
 }) => {
+
+  const validacionFormulario = () => {
+    return(
+      nuevoEquipo.tipo.trim() !== "" &&
+      nuevoEquipo.marca.trim() !== "" &&
+      nuevoEquipo.color.trim() !== "" &&
+      nuevoEquipo.modelo.trim() !== "" &&
+      nuevoEquipo.id_cliente.trim() !== "" 
+    );
+  };
+
+  const validarLetras = (e) => {
+    const charCode = e.which ? e.which : e.keyCode;
+    // Permitir solo letras {A-Z, a-z}
+    if(
+      (charCode < 65 || charCode > 90) && //Letras mayúsculas
+      (charCode < 97 || charCode > 122) && //Letras minúsculas
+      charCode !== 8 && //Retroceso
+      charCode !== 46 && //Borrar
+      charCode !== 9 //Tab
+    ) {
+      e.preventDefault(); //Evita que se escriba el carácter
+    }
+  };
+
+
   return (
     <Modal show={mostrarModal} onHide={() => setMostrarModal(false)}>
       <Modal.Header closeButton>
@@ -24,6 +50,7 @@ const RegistroEquipo = ({
               name="tipo"
               value={nuevoEquipo.tipo}
               onChange={manejarCambioInput}
+              onKeyDown={validarLetras}
               placeholder="Ingresa el tipo (máx. 40 caracteres)"
               maxLength={40}
               required
@@ -37,6 +64,7 @@ const RegistroEquipo = ({
               name="marca"
               value={nuevoEquipo.marca}
               onChange={manejarCambioInput}
+              onKeyDown={validarLetras}
               placeholder="Ingresa la marca (máx. 30 caracteres)"
               maxLength={30}
               required
@@ -50,6 +78,7 @@ const RegistroEquipo = ({
               name="color"
               value={nuevoEquipo.color}
               onChange={manejarCambioInput}
+              onKeyDown={validarLetras}
               placeholder="Ingresa el color (máx. 20 caracteres)"
               maxLength={20}
               required
@@ -75,6 +104,7 @@ const RegistroEquipo = ({
               name="id_cliente"
               value={nuevoEquipo.id_cliente}
               onChange={manejarCambioInput}
+              onKeyDown={validarLetras}
               required
             >
               <option value="">Selecciona un cliente</option>
@@ -95,7 +125,7 @@ const RegistroEquipo = ({
         <Button variant="secondary" onClick={() => setMostrarModal(false)}>
           Cancelar
         </Button>
-        <Button variant="primary" onClick={agregarEquipo}>
+        <Button variant="primary" disabled={!validacionFormulario()} onClick={agregarEquipo}>
           Guardar Equipo
         </Button>
       </Modal.Footer>

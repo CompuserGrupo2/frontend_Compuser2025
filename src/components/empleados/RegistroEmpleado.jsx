@@ -9,6 +9,44 @@ const RegistroEmpleado = ({
   agregarEmpleado,
   errorCarga,
 }) => {
+
+  const validacionFormulario = () => {
+    return(
+      nuevoEmpleado.nombre.trim() !== "" &&
+      nuevoEmpleado.apellido.trim() !== "" &&
+      nuevoEmpleado.direccion.trim() !== "" &&
+      nuevoEmpleado.telefono.trim() !== "" &&
+      nuevoEmpleado.cedula.trim() !== "" 
+    );
+  };
+
+  const validarLetras = (e) => {
+    const charCode = e.which ? e.which : e.keyCode;
+    // Permitir solo letras {A-Z, a-z}
+    if(
+      (charCode < 65 || charCode > 90) && //Letras mayúsculas
+      (charCode < 97 || charCode > 122) && //Letras minúsculas
+      charCode !== 8 && //Retroceso
+      charCode !== 46 && //Borrar
+      charCode !== 9 //Tab
+    ) {
+      e.preventDefault(); //Evita que se escriba el carácter
+    }
+  };
+
+  const validarNumeros = (e) => {
+    const charCode = e.which ? e.which : e.keyCode;
+    // Permitir solo números (0-9), retroceso, borrar y tabb
+    if(
+      (charCode < 48 || charCode > 57) && // Números (0-9)
+      charCode !== 8 && //Retroceso
+      charCode !== 46 && //Borrar
+      charCode !== 9 //Tab
+    ) {
+      e.preventDefault(); //Evita que se escriba el carácter
+    }
+  };
+
   return (
     <Modal show={mostrarModal} onHide={() => setMostrarModal(false)}>
       <Modal.Header closeButton>
@@ -23,6 +61,7 @@ const RegistroEmpleado = ({
               name="nombre"
               value={nuevoEmpleado.nombre}
               onChange={manejarCambioInput}
+              onKeyDown={validarLetras}
               placeholder="Ingresa el nombre (máx. 20 caracteres)"
               maxLength={20}
               required
@@ -35,6 +74,7 @@ const RegistroEmpleado = ({
               name="apellido"
               value={nuevoEmpleado.apellido}
               onChange={manejarCambioInput}
+              onKeyDown={validarLetras}
               placeholder="Ingresa el apellido (máx. 30 caracteres)"
               maxLength={30}
               required
@@ -59,6 +99,7 @@ const RegistroEmpleado = ({
               name="telefono"
               value={nuevoEmpleado.telefono}
               onChange={manejarCambioInput}
+              onKeyDown={validarNumeros}
               placeholder="Ingresa el teléfono (máx. 8 caracteres)"
               maxLength={8}
               required
@@ -87,7 +128,7 @@ const RegistroEmpleado = ({
         }}>
           Cancelar
         </Button>
-        <Button variant="primary" onClick={agregarEmpleado}>
+        <Button variant="primary" disabled={!validacionFormulario()} onClick={agregarEmpleado}>
           Guardar Empleado
         </Button>
       </Modal.Footer>

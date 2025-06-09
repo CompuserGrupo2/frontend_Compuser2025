@@ -9,6 +9,28 @@ const RegistroServicio = ({
   agregarServicio,
   errorCarga,
 }) => {
+
+    const validacionFormulario = () => {
+    return(
+      nuevoServicio.descripcion.trim() !== "" &&
+      nuevoServicio.costo.trim() !== ""
+    );
+  };
+
+  const validarNumeros = (e) => {
+    const charCode = e.which ? e.which : e.keyCode;
+    // Permitir solo números (0-9), retroceso, borrar y tabb
+    if(
+      (charCode < 48 || charCode > 57) && // Números (0-9)
+      charCode !== 8 && //Retroceso
+      charCode !== 46 && //Borrar
+      charCode !== 9 //Tab
+    ) {
+      e.preventDefault(); //Evita que se escriba el carácter
+    }
+  };
+
+
   return (
     <Modal show={mostrarModal} onHide={() => setMostrarModal(false)}>
       <Modal.Header closeButton>
@@ -33,8 +55,9 @@ const RegistroServicio = ({
             <Form.Control
               type="number"
               name="costo"
-              value={nuevoServicio.costo}
+              value={ nuevoServicio.costo}
               onChange={manejarCambioInput}
+              onKeyDown={validarNumeros}
               placeholder="Ingresa el costo del servicio"
               min={0}
               step={0.01}
@@ -73,7 +96,7 @@ const RegistroServicio = ({
         }}>
           Cancelar
         </Button>
-        <Button variant="primary" onClick={agregarServicio}>
+        <Button variant="primary" disabled={!validacionFormulario()} onClick={agregarServicio}> 
           Guardar Servicio
         </Button>
       </Modal.Footer>

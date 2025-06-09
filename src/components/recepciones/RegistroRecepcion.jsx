@@ -12,6 +12,30 @@ const RegistroRecepcion = ({
   equipos,
   empleados
 }) => {
+
+  const validacionFormulario = () => {
+    return(
+      nuevaRecepcion.estado_recepcion.trim() !== "" &&
+      nuevaRecepcion.id_cliente.trim() !== "" &&
+      nuevaRecepcion.id_equipocomp.trim() !== "" &&
+      nuevaRecepcion.id_empleado.trim() !== "" 
+    );
+  };
+
+  const validarLetras = (e) => {
+    const charCode = e.which ? e.which : e.keyCode;
+    // Permitir solo letras {A-Z, a-z}
+    if(
+      (charCode < 65 || charCode > 90) && //Letras mayúsculas
+      (charCode < 97 || charCode > 122) && //Letras minúsculas
+      charCode !== 8 && //Retroceso
+      charCode !== 46 && //Borrar
+      charCode !== 9 //Tab
+    ) {
+      e.preventDefault(); //Evita que se escriba el carácter
+    }
+  };
+
   return (
     <Modal show={mostrarModal} onHide={() => setMostrarModal(false)}>
       <Modal.Header closeButton>
@@ -52,6 +76,7 @@ const RegistroRecepcion = ({
               name="id_cliente"
               value={nuevaRecepcion.id_cliente}
               onChange={manejarCambioInput}
+              onKeyDown={validarLetras}
               required
             >
               <option value="">Selecciona un cliente</option>
@@ -69,6 +94,7 @@ const RegistroRecepcion = ({
               name="id_equipocomp"
               value={nuevaRecepcion.id_equipocomp}
               onChange={manejarCambioInput}
+              onKeyDown={validarLetras}
               required
             >
               <option value="">Selecciona un equipo computarizado</option>
@@ -86,6 +112,7 @@ const RegistroRecepcion = ({
               name="id_empleado"
               value={nuevaRecepcion.id_empleado}
               onChange={manejarCambioInput}
+              onKeyDown={validarLetras}
               required
             >
               <option value="">Selecciona un empleado</option>
@@ -106,7 +133,7 @@ const RegistroRecepcion = ({
         <Button variant="secondary" onClick={() => setMostrarModal(false)}>
           Cancelar
         </Button>
-        <Button variant="primary" onClick={agregarRecepcion}>
+        <Button variant="primary" disabled={!validacionFormulario()} onClick={agregarRecepcion}>
           Guardar Recepción
         </Button>
       </Modal.Footer>

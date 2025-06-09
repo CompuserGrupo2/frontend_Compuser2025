@@ -12,6 +12,31 @@ const RegistroEntrega = ({
   clientes, // Lista de clientes obtenidos
   empleados
 }) => {
+
+  const validacionFormulario = () => {
+    return(
+      nuevaEntrega.estado_entrega.trim() !== "" &&
+      nuevaEntrega.id_equipocomp.trim() !== "" &&
+      nuevaEntrega.id_cliente.trim() !== "" &&
+      nuevaEntrega.id_empleado.trim() !== "" 
+    );
+  };
+
+  const validarLetras = (e) => {
+    const charCode = e.which ? e.which : e.keyCode;
+    // Permitir solo letras {A-Z, a-z}
+    if(
+      (charCode < 65 || charCode > 90) && //Letras mayúsculas
+      (charCode < 97 || charCode > 122) && //Letras minúsculas
+      charCode !== 8 && //Retroceso
+      charCode !== 46 && //Borrar
+      charCode !== 9 //Tab
+    ) {
+      e.preventDefault(); //Evita que se escriba el carácter
+    }
+  };
+
+
   return (
     <Modal show={mostrarModal} onHide={() => setMostrarModal(false)}>
       <Modal.Header closeButton>
@@ -52,6 +77,7 @@ const RegistroEntrega = ({
               name="id_cliente"
               value={nuevaEntrega.id_cliente}
               onChange={manejarCambioInput}
+              onKeyDown={validarLetras}
               required
             >
               <option value="">Selecciona un cliente</option>
@@ -69,6 +95,7 @@ const RegistroEntrega = ({
               name="id_equipocomp"
               value={nuevaEntrega.id_equipocomp}
               onChange={manejarCambioInput}
+              onKeyDown={validarLetras}
               required
             >
               <option value="">Selecciona un equipo computarizado</option>
@@ -86,6 +113,7 @@ const RegistroEntrega = ({
               name="id_empleado"
               value={nuevaEntrega.id_empleado}
               onChange={manejarCambioInput}
+              onKeyDown={validarLetras}
               required
             >
               <option value="">Selecciona un empleado</option>
@@ -106,7 +134,7 @@ const RegistroEntrega = ({
         <Button variant="secondary" onClick={() => setMostrarModal(false)}>
           Cancelar
         </Button>
-        <Button variant="primary" onClick={agregarEntrega}>
+        <Button variant="primary" disabled={!validacionFormulario()} onClick={agregarEntrega}>
           Guardar Entrega
         </Button>
       </Modal.Footer>
