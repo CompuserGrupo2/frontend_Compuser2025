@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 
 const EdicionUsuario = ({
@@ -9,6 +9,15 @@ const EdicionUsuario = ({
   actualizarUsuario,
   errorCarga,
 }) => {
+
+  const [mostrarContraseña, setMostrarContraseña] = useState(true);
+
+  useEffect(() => {
+    if (mostrarModalEdicion) {
+      setMostrarContraseña(false); // Oculta la contraseña cada vez que se abre el modal
+    }
+  }, [mostrarModalEdicion]);
+
   return (
     <Modal show={mostrarModalEdicion} onHide={() => setMostrarModalEdicion(false)}>
       <Modal.Header closeButton>
@@ -30,15 +39,25 @@ const EdicionUsuario = ({
           </Form.Group>
           <Form.Group className="mb-3" controlId="formContraseña">
             <Form.Label>Contraseña</Form.Label>
-            <Form.Control
-              type="password"
-              name="contraseña"
-              value={usuarioEditado?.contraseña || ''}
-              onChange={manejarCambioInputEdicion}
-              placeholder="Ingresa la contraseña (máx. 20 caracteres)"
-              maxLength={20}
-              required
-            />
+            <div className="d-flex align-items-center">
+              <Form.Control
+                type={mostrarContraseña ? "text" : "password"}
+                name="contraseña"
+                value={usuarioEditado?.contraseña || ''}
+                onChange={manejarCambioInputEdicion}
+                placeholder="Ingresa la contraseña (máx. 20 caracteres)"
+                maxLength={20}
+                required
+              />
+              <Button
+                  variant="primary"
+                  size="sm"
+                  className="ms-2 text-white"
+                  onClick={() => setMostrarContraseña(!mostrarContraseña)}
+                >
+                  {mostrarContraseña ? "Ocultar" : "Mostrar"}
+                </Button>
+            </div>
           </Form.Group>
           {errorCarga && (
             <div className="text-danger mt-2">{errorCarga}</div>

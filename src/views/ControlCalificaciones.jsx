@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button, Modal, Form, Badge, Alert } from "react-bootstrap";
+import { Table, Button, Modal, Form, Badge, Alert, Card } from "react-bootstrap";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import CuadroBusquedas from "../components/busquedas/CuadroBusquedas";
 import Paginacion from "../components/ordenamiento/Paginacion";
@@ -120,53 +120,93 @@ const ControlCalificaciones = () => {
         manejarCambioBusqueda={(e) => setTextoBusqueda(e.target.value)}
         placeholder="Buscar por cliente, servicio o comentario..."
       />
-
-      <Table striped bordered hover responsive className="mt-3">
-        <thead className="table-dark">
-          <tr>
-            <th>Cliente</th>
-            <th>Servicio</th>
-            <th>Calificación</th>
-            <th>Comentario</th>
-            <th>Fecha</th>
-            <th>Estado</th>
-            <th>Acción</th>
-          </tr>
-        </thead>
-        <tbody>
-          {calificacionesPaginadas.length === 0 ? (
+      <div className="d-none d-md-block">
+        <Table striped bordered hover responsive className="mt-3">
+          <thead className="table-dark">
             <tr>
-              <td colSpan="7" className="text-center">No hay calificaciones.</td>
+              <th>ID</th>
+              <th>Cliente</th>
+              <th>Servicio</th>
+              <th>Calificación</th>
+              <th>Comentario</th>
+              <th>Fecha</th>
+              <th>Estado</th>
+              <th>Respuesta</th>
             </tr>
-          ) : (
-            calificacionesPaginadas.map((cal) => (
-              <tr key={cal.id_cali}>
-                <td>{cal.cliente}</td>
-                <td>{cal.servicio}</td>
-                <td>{renderEstrellas(cal.calidad_servicio)}</td>
-                <td>{cal.comentario || "-"}</td>
-                <td>{new Date(cal.fecha_calificacion).toLocaleDateString()}</td>
-                <td>
-                  {cal.respuesta_calificacion ? (
-                    <Badge bg="success">Respondido</Badge>
-                  ) : (
-                    <Badge bg="warning text-dark">Pendiente</Badge>
-                  )}
-                </td>
-                <td>
-                  {cal.respuesta_calificacion ? (
-                    <span>{cal.respuesta_calificacion}</span>
-                  ) : (
-                    <Button size="sm" variant="primary" onClick={() => abrirModal(cal)}>
-                      Responder
-                    </Button>
-                  )}
-                </td>
+          </thead>
+          <tbody>
+            {calificacionesPaginadas.length === 0 ? (
+              <tr>
+                <td colSpan="7" className="text-center">No hay calificaciones.</td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </Table>
+            ) : (
+              calificacionesPaginadas.map((cal) => (
+                <tr key={cal.id_cali}>
+                  <td>{cal.id_cali}</td>
+                  <td>{cal.cliente}</td>
+                  <td>{cal.servicio}</td>
+                  <td>{renderEstrellas(cal.calidad_servicio)}</td>
+                  <td>{cal.comentario || <em> Sin comentario.</em>}</td>
+                  <td>{new Date(cal.fecha_calificacion).toLocaleDateString()}</td>
+                  <td>
+                    {cal.respuesta_calificacion ? (
+                      <Badge bg="success">Respondido</Badge>
+                    ) : (
+                      <Badge bg="warning text-dark">Pendiente</Badge>
+                    )}
+                  </td>
+                  <td>
+                    {cal.respuesta_calificacion ? (
+                      <span>{cal.respuesta_calificacion}</span>
+                    ) : (
+                      <Button size="sm" variant="primary" onClick={() => abrirModal(cal)}>
+                        Responder
+                      </Button>
+                    )}
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </Table>
+      </div>
+
+      <div className="d-block d-md-none">
+      {calificacionesPaginadas.map((cal) => (
+        <Card key={cal.id_cali} className="mb-2 shadow-sm">
+          <Card.Body>
+            <Card.Title><strong>ID:</strong> {cal.id_cali}</Card.Title>
+            <Card.Text><strong>Cliente:</strong> {cal.cliente}</Card.Text>
+            <Card.Text><strong>Servicio:</strong> {cal.servicio}</Card.Text>
+            <Card.Text><strong>Calificación:</strong>
+              {renderEstrellas(cal.calidad_servicio)}
+            </Card.Text>
+            <Card.Text><strong>Comentario:</strong>
+              {cal.comentario || <em> Sin comentario.</em>}
+            </Card.Text>
+            <Card.Text>
+              <strong>Fecha:</strong>
+              {new Date(cal.fecha_calificacion).toLocaleDateString()}
+            </Card.Text>
+            <Card.Text><strong>Estado:</strong> {cal.respuesta_calificacion ? (
+              <Badge bg="success">Respondido</Badge>
+              ) : (
+              <Badge bg="warning text-dark">Pendiente</Badge>
+              )}
+            </Card.Text>
+            <Card.Text><strong>Comentario:</strong>
+              {cal.respuesta_calificacion ? (
+                <span>{cal.respuesta_calificacion}</span>
+              ) : (
+                <Button size="sm" variant="primary" onClick={() => abrirModal(cal)}>
+                  Responder
+                </Button>
+              )}
+            </Card.Text>
+          </Card.Body>
+        </Card>
+      ))}
+    </div>
 
       <div className="mt-auto">
         <Paginacion

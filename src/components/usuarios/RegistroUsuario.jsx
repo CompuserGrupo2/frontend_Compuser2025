@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 
 const RegistroUsuario = ({
@@ -9,6 +9,14 @@ const RegistroUsuario = ({
   agregarUsuario,
   errorCarga, 
 }) => {
+
+  const [mostrarContraseña, setMostrarContraseña] = useState(true);
+  
+    useEffect(() => {
+      if (mostrarModal) {
+        setMostrarContraseña(false); // Oculta la contraseña cada vez que se abre el modal
+      }
+    }, [mostrarModal]);
 
   const validacionFormulario = () => {
     return(
@@ -23,7 +31,7 @@ const RegistroUsuario = ({
         <Modal.Title>Agregar Nuevo Usuario</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form autoComplete="off">
           <Form.Group className="mb-3" controlId="formUsuario">
             <Form.Label>Usuario</Form.Label>
             <Form.Control
@@ -38,15 +46,26 @@ const RegistroUsuario = ({
           </Form.Group>
           <Form.Group className="mb-3" controlId="formContraseña">
             <Form.Label>Contraseña</Form.Label>
-            <Form.Control
-              type="password"
-              name="contraseña"
-              value={nuevoUsuario.contraseña}
-              onChange={manejarCambioInput}
-              placeholder="Ingresa la contraseña (máx. 20 caracteres)"
-              maxLength={20}
-              required
-            />
+            <div className="d-flex align-items-center">
+              <Form.Control
+                type={mostrarContraseña ? "text" : "password"}
+                name="contraseña"
+                autoComplete="new-password"
+                value={nuevoUsuario.contraseña}
+                onChange={manejarCambioInput}
+                placeholder="Ingresa la contraseña (máx. 20 caracteres)"
+                maxLength={20}
+                required
+              />
+              <Button
+                variant="primary"
+                size="sm"
+                className="ms-2 text-white"
+                onClick={() => setMostrarContraseña(!mostrarContraseña)}
+              >
+                {mostrarContraseña ? "Ocultar" : "Mostrar"}
+              </Button>
+            </div>
           </Form.Group>
           {errorCarga && (
             <div className="text-danger mt-2">{errorCarga}</div>

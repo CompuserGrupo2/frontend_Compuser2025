@@ -362,7 +362,7 @@ const Servicios = () => {
               Nuevo Servicio
             </Button>
           </Col>
-          <Col lg={2} md={3} sm={3} xs={4}>
+          <Col lg={2} md={3} sm={3} xs={6}>
             <Button
               className="mb-3"
               onClick={generarPDFServicios}

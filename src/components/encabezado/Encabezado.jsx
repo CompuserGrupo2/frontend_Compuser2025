@@ -95,7 +95,7 @@ const Encabezado = () => {
                     onClick={() => navegarA("/usuario")}
                     className={estaColapsado ? "text-black" : "text-white"}
                   >
-                    {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
+                    {estaColapsado ? <i className="bi bi-people-fill me-2"></i> : null}
                     <strong>Usuarios</strong>
                   </Nav.Link>
 
@@ -103,7 +103,7 @@ const Encabezado = () => {
                     onClick={() => navegarA("/clientes")}
                     className={estaColapsado ? "text-black" : "text-white"}
                   >
-                    {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
+                    {estaColapsado ? <i className="bi bi-person-fill me-2"></i> : null}
                     <strong>Clientes</strong>
                   </Nav.Link>
 
@@ -111,7 +111,7 @@ const Encabezado = () => {
                     onClick={() => navegarA("/equipos")}
                     className={estaColapsado ? "text-black" : "text-white"}
                   >
-                    {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
+                    {estaColapsado ? <i className="bi bi-laptop-fill me-2"></i> : null}
                     <strong>Equipos Computarizados</strong>
                   </Nav.Link>
 
@@ -119,14 +119,14 @@ const Encabezado = () => {
                     onClick={() => navegarA("/empleados")}
                     className={estaColapsado ? "text-black" : "text-white"}
                   >
-                    {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
+                    {estaColapsado ? <i className="bi bi-person-fill-gear me-2"></i> : null}
                     <strong>Empleados</strong>
                   </Nav.Link>
 
                   <NavDropdown 
                     title={
                       <span>
-                        {estaColapsado && <i className="bi-bag-heart-fill me-2"></i>}
+                        {estaColapsado && <i className="bi bi-tools me-2"></i>}
                         Servicios
                       </span>
                     }
@@ -137,7 +137,7 @@ const Encabezado = () => {
                       onClick={() => navegarA("/servicios")}
                       className="text-black"
                     >
-                      {estaColapsado ? <i className="bi-box2-heart-fill me-2"></i> : null}
+                      {estaColapsado ? <i className="bi bi-screwdriver me-2"></i> : null}
                       <strong>Gestión de servicios</strong>
                     </NavDropdown.Item>
 
@@ -145,7 +145,7 @@ const Encabezado = () => {
                       className="text-black"
                       onClick={() => navegarA("/catalogo")}
                     >
-                      {estaColapsado ? <i className="bi-bookmarks-fill me-2"></i> : null}
+                      {estaColapsado ? <i className="bi-bag-fill me-2"></i> : null}
                       <strong>Catalogo de servicios</strong>
                     </NavDropdown.Item>
 
@@ -153,7 +153,7 @@ const Encabezado = () => {
                       className="text-black"
                       onClick={() => navegarA("/calificaciones")}
                     >
-                      {estaColapsado ? <i className="bi-bookmarks-fill me-2"></i> : null}
+                      {estaColapsado ? <i className="bi bi-star-fill me-2"></i> : null}
                       <strong>Control de calificaciones</strong>
                     </NavDropdown.Item>
 
@@ -162,7 +162,7 @@ const Encabezado = () => {
                   <NavDropdown 
                     title={
                       <span>
-                        {estaColapsado && <i className="bi-bag-heart-fill me-2"></i>}
+                        {estaColapsado && <i className="bi bi-card-list me-2"></i>}
                         Operaciones
                       </span>
                     }
@@ -173,7 +173,7 @@ const Encabezado = () => {
                       onClick={() => navegarA("/diagnosticos")}
                       className="text-black"
                     >
-                      {estaColapsado ? <i className="bi-box2-heart-fill me-2"></i> : null}
+                      {estaColapsado ? <i className="bi bi-pen-fill me-2"></i> : null}
                       <strong>Gestión de Diagnósticos</strong>
                     </NavDropdown.Item>
 
@@ -181,7 +181,7 @@ const Encabezado = () => {
                       className="text-black"
                       onClick={() => navegarA("/recepciones")}
                     >
-                      {estaColapsado ? <i className="bi-bookmarks-fill me-2"></i> : null}
+                      {estaColapsado ? <i className="bi bi-pen-fill me-2"></i> : null}
                       <strong>Control de recepciones</strong>
                     </NavDropdown.Item>
 
@@ -189,7 +189,7 @@ const Encabezado = () => {
                       className="text-black"
                       onClick={() => navegarA("/entregas")}
                     >
-                      {estaColapsado ? <i className="bi-bookmarks-fill me-2"></i> : null}
+                      {estaColapsado ? <i className="bi bi-pen-fill me-2"></i> : null}
                       <strong>Control de entregas</strong>
                     </NavDropdown.Item>
 
@@ -198,7 +198,7 @@ const Encabezado = () => {
                   <NavDropdown 
                     title={
                       <span>
-                        {estaColapsado && <i className="bi-bag-heart-fill me-2"></i>}
+                        {estaColapsado && <i className="bi bi-bar-chart-fill me-2"></i>}
                         Gráficos
                       </span>
                     }
@@ -209,7 +209,7 @@ const Encabezado = () => {
                       onClick={() => navegarA("/estadisticas")}
                       className="text-black"
                     >
-                      {estaColapsado ? <i className="bi-box2-heart-fill me-2"></i> : null}
+                      {estaColapsado ? <i className="bi bi-bar-chart-line-fill me-2"></i> : null}
                       <strong>Estadísticas</strong>
                     </NavDropdown.Item>
 
@@ -217,7 +217,7 @@ const Encabezado = () => {
                       className="text-black"
                       onClick={() => navegarA("/dashboard")}
                     >
-                      {estaColapsado ? <i className="bi-bookmarks-fill me-2"></i> : null}
+                      {estaColapsado ? <i className="bi bi-layers-fill me-2"></i> : null}
                       <strong>Dashboard</strong>
                     </NavDropdown.Item>
 

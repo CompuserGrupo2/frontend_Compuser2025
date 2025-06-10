@@ -32,7 +32,7 @@ const Tarjeta = ({ descripcion, costo, imagen, id_ser }) => {
       <Col lg={3} className="mt-3">
         <Zoom cascade triggerOnce delay={10} duration={600}>
           <Card border="">
-            <Card.Img variant="top" src={`data:image/png;base64,${imagen}`} />
+            <Card.Img variant="top" src={`data:image/png;base64,${imagen}`} className="img-tarjeta-servicio" />
             <Card.Body>
               <Card.Title>
                 <strong>{descripcion || 'Sin descripción'}</strong>
@@ -42,7 +42,7 @@ const Tarjeta = ({ descripcion, costo, imagen, id_ser }) => {
                   <i className="bi-currency-dollar"></i> {costo.toFixed(2)}
                 </Badge>
               </Stack>
-              <div className="mt-2">
+              <div className="mt-1">
                 <EstrellasPromedio promedio={promedio} />
               </div>
               <div className="mt-3 d-grid">

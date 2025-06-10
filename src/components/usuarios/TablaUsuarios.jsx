@@ -1,6 +1,6 @@
 // Importaciones necesarias para el componente visual
 import React from 'react';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Card } from 'react-bootstrap';
 import Paginacion from '../ordenamiento/Paginacion';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -31,6 +31,7 @@ const TablaUsuarios = ({
     className="d-flex flex-column justify-content-between"
     style={{ minHeight: "60vh" }} // ajusta el valor si querés más o menos altura mínima
   >
+    <div className="d-none d-md-block">
     <Table striped bordered hover responsive>
       <thead className='table-dark'>
         <tr>
@@ -68,6 +69,36 @@ const TablaUsuarios = ({
         ))}
       </tbody>
     </Table>
+    </div>
+
+    <div className="d-block d-md-none">
+      {usuarios.map((usuari) => (
+        <Card key={usuari.id_usuario} className="mb-2 shadow-sm">
+          <Card.Body>
+            <Card.Title>{usuari.usuario}</Card.Title>
+            <Card.Text><strong>ID:</strong> {usuari.id_usuario}</Card.Text>
+            <Card.Text><strong>Contraseña:</strong> {'*'.repeat(usuari.contraseña.length)}</Card.Text>
+            <div>
+              <Button
+                variant="outline-primary"
+                size="sm"
+                className="me-2"
+                onClick={() => abrirModalEdicion(usuari)}
+              >
+                <i className="bi bi-pencil"></i>
+              </Button>
+              <Button
+                variant="outline-danger"
+                size="sm"
+                onClick={() => abrirModalEliminacion(usuari)}
+              >
+                <i className="bi bi-trash"></i>
+              </Button>
+            </div>
+          </Card.Body>
+        </Card>
+      ))}
+    </div>
 
     {/* Paginación fijada abajo del contenedor de la tabla */}
     <div className="mt-auto">

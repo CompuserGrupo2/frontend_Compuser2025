@@ -1,6 +1,6 @@
 // Importaciones necesarias para el componente visual
 import React from 'react';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Card } from 'react-bootstrap';
 import Paginacion from '../ordenamiento/Paginacion';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -30,6 +30,7 @@ const TablaServicios = ({ servicios,
     className="d-flex flex-column justify-content-between"
     style={{ minHeight: "60vh" }} // ajusta el valor si querés más o menos altura mínima
   >
+    <div className="d-none d-md-block">
     <Table striped bordered hover responsive>
       <thead className='table-dark'>
         <tr>
@@ -87,6 +88,47 @@ const TablaServicios = ({ servicios,
         ))}
       </tbody>
     </Table>
+    </div>
+
+    <div className="d-block d-md-none">
+      {servicios.map((servicio) => (
+        <Card key={servicio.id_ser} className="mb-2 shadow-sm">
+          <Card.Body>
+            <Card.Title>{servicio.descripcion}</Card.Title>
+            <Card.Text><strong>ID:</strong> {servicio.id_ser}</Card.Text>
+            {servicio.imagen ? (
+              <Card.Img
+                variant="top"
+                src={`data:image/png;base64,${servicio.imagen}`}
+                alt={servicio.descripcion}
+                style={{ height: '300px', objectFit: 'cover', width: '100%' }}
+              />
+            ) : (
+              <Card.Text><em>Sin imagen</em></Card.Text>
+            )}
+            <Card.Text><strong>Costo:</strong> {servicio.costo}</Card.Text>
+            <div>
+              <Button
+                variant="outline-primary"
+                size="sm"
+                className="me-2"
+                onClick={() => abrirModalEdicion(servicio)}
+              >
+                <i className="bi bi-pencil"></i>
+              </Button>
+              <Button
+                variant="outline-danger"
+                size="sm"
+                onClick={() => abrirModalEliminacion(servicio)}
+              >
+                <i className="bi bi-trash"></i>
+              </Button>
+            </div>
+          </Card.Body>
+        </Card>
+      ))}
+    </div>
+
     {/* Paginación fijada abajo del contenedor de la tabla */}
     <div className="mt-auto">
       <Paginacion
