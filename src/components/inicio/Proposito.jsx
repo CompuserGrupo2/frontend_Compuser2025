@@ -11,21 +11,21 @@ const Proposito = () => {
         <Col sm={12} lg={4} className="text-center">
           <i className="bi bi-bullseye" style={{ fontSize: "2rem", color: "#dc3545" }}></i>
           <h5>Objetivos</h5>
-          <p>Prueba Objetivo</p>
+          <p>Promover en Compuser el uso de herramientas de inteligencia de negocios para optimizar las finanzas y mejorar la experiencia del cliente, destacando la importancia del análisis de datos y la personalización de servicios en las gestión de la empresa.</p>
         </Col>
 
         {/* Misión */}
         <Col sm={12} lg={4} className="text-center">
           <i className="bi bi-flag-fill" style={{ fontSize: "2rem", color: "#0d6efd" }}></i>
           <h5>Misión</h5>
-          <p>Prueba Misión</p>
+          <p>Ofrecer y promover en Compuser soluciones integrales de reparación que optimicen la toma de decisiones, brindando análisis precisos y tendencias que inspiren confianza y satisfacción en la gestión financiera y operativa.</p>
         </Col>
 
         {/* Visión */}
         <Col sm={12} lg={4} className="text-center">
           <i className="bi bi-eye-fill" style={{ fontSize: "2rem", color: "#198754" }}></i>
           <h5>Visión</h5>
-          <p>Prueba Visión</p>
+          <p>Ser en Compuser el principal referente en reparación de computadoras e impresoras, anticipando variaciones estacionales y guiando a la empresa hacia un crecimiento sostenible con soluciones analíticas confiables y personalizadas.</p>
         </Col>
 
       </Row>

@@ -26,7 +26,7 @@ const Empleados = () => {
 
   //Paginación
   const [paginaActual, establecerPaginaActual] = useState(1);
-  const elementosPorPagina = 3; // Número de elementos por página
+  const elementosPorPagina = 5; // Número de elementos por página
   
   //Eliminación
   const [mostrarModalEliminacion, setMostrarModalEliminacion] = useState(false);
