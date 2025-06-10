@@ -12,6 +12,30 @@ const EdicionRecepcion = ({
   equipos,
   empleados
 }) => {
+
+  const validacionFormulario = () => {
+    return(
+      recepcionEditada?.estado_recepcion.trim() !== "" &&
+      recepcionEditada?.cliente.trim() !== "" &&
+      recepcionEditada?.equipo.trim() !== "" &&
+      recepcionEditada?.empleado.trim() !== "" 
+    );
+  };
+
+  const validarLetras = (e) => {
+    const charCode = e.which ? e.which : e.keyCode;
+    // Permitir solo letras {A-Z, a-z}
+    if(
+      (charCode < 65 || charCode > 90) && //Letras mayúsculas
+      (charCode < 97 || charCode > 122) && //Letras minúsculas
+      charCode !== 8 && //Retroceso
+      charCode !== 46 && //Borrar
+      charCode !== 9 //Tab
+    ) {
+      e.preventDefault(); //Evita que se escriba el carácter
+    }
+  };
+
   return (
     <Modal show={mostrarModalEdicion} onHide={() => setMostrarModalEdicion(false)}>
       <Modal.Header closeButton>
@@ -51,6 +75,7 @@ const EdicionRecepcion = ({
               name="id_cliente"
               value={recepcionEditada?.id_cliente || ''}
               onChange={manejarCambioInputEdicion}
+              onKeyDown={validarLetras}
               required
             >
               <option value="">Selecciona un cliente</option>
@@ -68,6 +93,7 @@ const EdicionRecepcion = ({
               name="id_equipocomp"
               value={recepcionEditada?.id_equipocomp || ''}
               onChange={manejarCambioInputEdicion}
+              onKeyDown={validarLetras}
               required
             >
               <option value="">Selecciona un equipo computarizado</option>
@@ -85,6 +111,7 @@ const EdicionRecepcion = ({
               name="id_empleado"
               value={recepcionEditada?.id_empleado || ''}
               onChange={manejarCambioInputEdicion}
+              onKeyDown={validarLetras}
               required
             >
               <option value="">Selecciona un empleado</option>
@@ -107,7 +134,7 @@ const EdicionRecepcion = ({
         }}>
           Cancelar
         </Button>
-        <Button variant="primary" onClick={actualizarRecepcion}>
+        <Button variant="primary" disabled={!validacionFormulario()} onClick={actualizarRecepcion}>
           Guardar Cambios
         </Button>
       </Modal.Footer>

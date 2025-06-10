@@ -10,6 +10,31 @@ const EdicionEquipo = ({
   errorCarga,
   clientes
 }) => {
+
+  const validacionFormulario = () => {
+    return(
+      equipoEditado?.tipo.trim() !== "" &&
+      equipoEditado?.marca.trim() !== "" &&
+      equipoEditado?.color.trim() !== "" &&
+      equipoEditado?.modelo.trim() !== "" &&
+      equipoEditado?.cliente.trim() !== "" 
+    );
+  };
+
+  const validarLetras = (e) => {
+    const charCode = e.which ? e.which : e.keyCode;
+    // Permitir solo letras {A-Z, a-z}
+    if(
+      (charCode < 65 || charCode > 90) && //Letras mayúsculas
+      (charCode < 97 || charCode > 122) && //Letras minúsculas
+      charCode !== 8 && //Retroceso
+      charCode !== 46 && //Borrar
+      charCode !== 9 //Tab
+    ) {
+      e.preventDefault(); //Evita que se escriba el carácter
+    }
+  };
+
   return (
     <Modal show={mostrarModalEdicion} onHide={() => setMostrarModalEdicion(false)}>
       <Modal.Header closeButton>
@@ -24,6 +49,7 @@ const EdicionEquipo = ({
               name="tipo"
               value={equipoEditado?.tipo || ''}
               onChange={manejarCambioInputEdicion}
+              onKeyDown={validarLetras}
               placeholder="Ingresa el tipo (máx. 40 caracteres)"
               maxLength={40}
               required
@@ -37,6 +63,7 @@ const EdicionEquipo = ({
               name="marca"
               value={equipoEditado?.marca || ''}
               onChange={manejarCambioInputEdicion}
+              onKeyDown={validarLetras}
               placeholder="Ingresa la marca (máx. 30 caracteres)"
               maxLength={30}
               required
@@ -50,6 +77,7 @@ const EdicionEquipo = ({
               name="color"
               value={equipoEditado?.color || ''}
               onChange={manejarCambioInputEdicion}
+              onKeyDown={validarLetras}
               placeholder="Ingresa el color (máx. 20 caracteres)"
               maxLength={20}
               required
@@ -75,6 +103,7 @@ const EdicionEquipo = ({
               name="id_cliente"
               value={equipoEditado?.id_cliente || ''}
               onChange={manejarCambioInputEdicion}
+              onKeyDown={validarLetras}
               required
             >
               <option value="">Selecciona un cliente</option>
@@ -96,7 +125,7 @@ const EdicionEquipo = ({
         }}>
           Cancelar
         </Button>
-        <Button variant="primary" onClick={actualizarEquipo}>
+        <Button variant="primary" disabled={!validacionFormulario()} onClick={actualizarEquipo}>
           Guardar Cambios
         </Button>
       </Modal.Footer>

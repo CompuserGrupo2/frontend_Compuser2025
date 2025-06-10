@@ -191,7 +191,6 @@ const RegistroDiagnostico = ({
                   defaultOptions
                   loadOptions={cargarEquipos}
                   onChange={manejarCambioEquipo}
-                  onKeyDown={validarLetras}
                   value={equipoSeleccionado}
                   placeholder="Buscar equipo..."
                   isClearable
@@ -252,7 +251,6 @@ const RegistroDiagnostico = ({
                   cacheOptions
                   defaultOptions
                   loadOptions={cargarServicios}
-                  onKeyDown={validarLetras}
                   onChange={manejarCambioServicio}
                   value={servicioSeleccionado}
                   placeholder="Buscar servicio..."

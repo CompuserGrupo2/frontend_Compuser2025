@@ -9,6 +9,44 @@ const EdicionEmpleado = ({
   actualizarEmpleado,
   errorCarga,
 }) => {
+
+  const validacionFormulario = () => {
+    return(
+      empleadoEditado?.nombre.trim() !== "" &&
+      empleadoEditado?.apellido.trim() !== "" &&
+      empleadoEditado?.direccion.trim() !== "" &&
+      empleadoEditado?.telefono.trim() !== "" &&
+      empleadoEditado?.cedula.trim() !== "" 
+    );
+  };
+
+  const validarLetras = (e) => {
+    const charCode = e.which ? e.which : e.keyCode;
+    // Permitir solo letras {A-Z, a-z}
+    if(
+      (charCode < 65 || charCode > 90) && //Letras mayúsculas
+      (charCode < 97 || charCode > 122) && //Letras minúsculas
+      charCode !== 8 && //Retroceso
+      charCode !== 46 && //Borrar
+      charCode !== 9 //Tab
+    ) {
+      e.preventDefault(); //Evita que se escriba el carácter
+    }
+  };
+
+  const validarNumeros = (e) => {
+    const charCode = e.which ? e.which : e.keyCode;
+    // Permitir solo números (0-9), retroceso, borrar y tabb
+    if(
+      (charCode < 48 || charCode > 57) && // Números (0-9)
+      charCode !== 8 && //Retroceso
+      charCode !== 46 && //Borrar
+      charCode !== 9 //Tab
+    ) {
+      e.preventDefault(); //Evita que se escriba el carácter
+    }
+  };
+
   return (
     <Modal show={mostrarModalEdicion} onHide={() => setMostrarModalEdicion(false)}>
       <Modal.Header closeButton>
@@ -23,6 +61,7 @@ const EdicionEmpleado = ({
               name="nombre"
               value={empleadoEditado?.nombre || ''}
               onChange={manejarCambioInputEdicion}
+              onKeyDown={validarLetras}
               placeholder="Ingresa el nombre (máx. 20 caracteres)"
               maxLength={20}
               required
@@ -35,6 +74,7 @@ const EdicionEmpleado = ({
               name="apellido"
               value={empleadoEditado?.apellido || ''}
               onChange={manejarCambioInputEdicion}
+              onKeyDown={validarLetras}
               placeholder="Ingresa el apellido (máx. 30 caracteres)"
               maxLength={30}
               required
@@ -59,6 +99,7 @@ const EdicionEmpleado = ({
               name="telefono"
               value={empleadoEditado?.telefono || ''}
               onChange={manejarCambioInputEdicion}
+              onKeyDown={validarNumeros}
               placeholder="Ingresa el teléfono (máx. 8 caracteres)"
               maxLength={8}
               required
@@ -87,7 +128,7 @@ const EdicionEmpleado = ({
         }}>
           Cancelar
         </Button>
-        <Button variant="primary" onClick={actualizarEmpleado}>
+        <Button variant="primary" disabled={!validacionFormulario()} onClick={actualizarEmpleado}>
           Guardar Cambios
         </Button>
       </Modal.Footer>

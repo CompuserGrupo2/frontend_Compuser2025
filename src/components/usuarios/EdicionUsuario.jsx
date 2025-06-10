@@ -18,6 +18,13 @@ const EdicionUsuario = ({
     }
   }, [mostrarModalEdicion]);
 
+  const validacionFormulario = () => {
+    return(
+      usuarioEditado?.usuario.trim() !== "" &&
+      usuarioEditado?.contraseña.trim() !== ""
+    );
+  };
+
   return (
     <Modal show={mostrarModalEdicion} onHide={() => setMostrarModalEdicion(false)}>
       <Modal.Header closeButton>
@@ -70,7 +77,7 @@ const EdicionUsuario = ({
         }}>
           Cancelar
         </Button>
-        <Button variant="primary" onClick={actualizarUsuario}>
+        <Button variant="primary" disabled={!validacionFormulario()} onClick={actualizarUsuario}>
           Guardar Cambios
         </Button>
       </Modal.Footer>

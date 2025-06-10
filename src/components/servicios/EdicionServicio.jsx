@@ -9,6 +9,26 @@ const EdicionServicio = ({
   actualizarServicio,
   errorCarga,
 }) => {
+
+  const validacionFormulario = () => {
+    return(
+      servicioEditado?.descripcion.trim() !== "" 
+    );
+  };
+
+  const validarNumeros = (e) => {
+    const charCode = e.which ? e.which : e.keyCode;
+    // Permitir solo números (0-9), retroceso, borrar y tabb
+    if(
+      (charCode < 48 || charCode > 57) && // Números (0-9)
+      charCode !== 8 && //Retroceso
+      charCode !== 46 && //Borrar
+      charCode !== 9 //Tab
+    ) {
+      e.preventDefault(); //Evita que se escriba el carácter
+    }
+  };
+
   return (
     <Modal show={mostrarModalEdicion} onHide={() => setMostrarModalEdicion(false)}>
       <Modal.Header closeButton>
@@ -36,6 +56,7 @@ const EdicionServicio = ({
               name="costo"
               value={servicioEditado?.costo || ''}
               onChange={manejarCambioInputEdicion}
+              onKeyDown={validarNumeros}
               placeholder="Ingresa el costo del servicio"
               min={0}
               step={0.01}
@@ -83,7 +104,7 @@ const EdicionServicio = ({
         }}>
           Cancelar
         </Button>
-        <Button variant="primary" onClick={actualizarServicio}>
+        <Button variant="primary" disabled={!validacionFormulario()} onClick={actualizarServicio}>
           Guardar Cambios
         </Button>
       </Modal.Footer>
